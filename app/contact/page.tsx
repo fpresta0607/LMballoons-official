@@ -1,5 +1,6 @@
+import { Suspense } from "react";
 import { Instagram, Mail, MapPin } from "lucide-react";
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/components/ui/contact-form";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -28,7 +29,9 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Form */}
           <div className="lg:col-span-2">
-            <ContactForm />
+            <Suspense>
+              <ContactForm />
+            </Suspense>
 
             {/* Prefer email */}
             <div className="mt-8 pt-8 border-t border-rose">

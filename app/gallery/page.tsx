@@ -4,60 +4,62 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { Lightbox } from "@/components/ui/lightbox";
 
-const categories = ["All", "Arches", "Centerpieces", "Backdrops", "Events"] as const;
+const categories = ["All", "Arches & Backdrops", "Centerpieces"] as const;
 type Category = (typeof categories)[number];
 
 const images: { src: string; alt: string; category: Exclude<Category, "All"> }[] = [
   {
-    src: "/images/LedCenterpiece2.jpeg",
+    src: "/images/generated/LedCenterpiece2.png",
     alt: "LED centerpiece design",
     category: "Centerpieces",
   },
   {
-    src: "/images/LEDcenterpiece3.jpeg",
+    src: "/images/generated/LEDcenterpiece3.png",
     alt: "LED centerpiece",
     category: "Centerpieces",
   },
   {
-    src: "/images/LEDCenterpiece_Home.jpeg",
+    src: "/images/generated/LEDCenterpiece_Home.png",
     alt: "LED centerpiece event display",
-    category: "Events",
+    category: "Centerpieces",
   },
   {
-    src: "/images/ValentinesCenterpiece.jpeg",
+    src: "/images/generated/ValentinesCenterpiece.png",
     alt: "Valentine's centerpiece",
     category: "Centerpieces",
   },
   {
-    src: "/images/ValentinesPillar.jpeg",
+    src: "/images/generated/ValentinesPillar.png",
     alt: "Valentine's pillar display",
     category: "Centerpieces",
   },
   {
-    src: "/images/BirthdayPartyArch.jpeg",
+    src: "/images/generated/BirthdayPartyArch.png",
     alt: "Birthday party arch",
-    category: "Arches",
+    category: "Arches & Backdrops",
   },
   {
-    src: "/images/BalloonGarlandBackdrop.jpeg",
+    src: "/images/generated/BalloonGarlandBackdrop.png",
     alt: "Balloon garland backdrop",
-    category: "Backdrops",
+    category: "Arches & Backdrops",
   },
   {
-    src: "/images/StPatricksGarland.jpeg",
+    src: "/images/generated/StPatricksGarland.png",
     alt: "St. Patrick's Day garland",
-    category: "Arches",
+    category: "Arches & Backdrops",
   },
   {
-    src: "/images/StPatricksLobby.jpeg",
+    src: "/images/generated/StPatricksLobby.png",
     alt: "St. Patrick's Day lobby display",
-    category: "Backdrops",
+    category: "Arches & Backdrops",
   },
 ];
 
 export default function GalleryPage() {
   const [active, setActive] = useState<Category>("All");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const filtered =
     active === "All" ? images : images.filter((img) => img.category === active);
@@ -100,8 +102,9 @@ export default function GalleryPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {filtered.map((img, i) => (
               <div
-                key={i}
+                key={img.src}
                 className="relative aspect-square overflow-hidden group cursor-pointer"
+                onClick={() => setLightboxIndex(i)}
               >
                 <Image
                   src={img.src}
@@ -112,7 +115,8 @@ export default function GalleryPage() {
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/50 transition-all duration-300 flex items-end p-4">
                   <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-full">
                     <Link
-                      href="/contact"
+                      href={`/contact?style=${encodeURIComponent(img.alt)}`}
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-white text-xs tracking-widest uppercase border-b border-white pb-0.5 hover:text-cream transition-colors"
                     >
                       Book This Style
@@ -125,6 +129,16 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={filtered}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onNavigate={setLightboxIndex}
+        />
+      )}
 
       {/* CTA */}
       <section className="bg-cream py-16">

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 
 const eventTypes = [
@@ -14,14 +15,64 @@ const eventTypes = [
 
 type Status = "idle" | "loading" | "success" | "error";
 
+interface FieldErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+  eventDate?: string;
+}
+
+function validate(data: {
+  name: string;
+  email: string;
+  message: string;
+  eventDate: string;
+}): FieldErrors {
+  const errors: FieldErrors = {};
+
+  if (!data.name || data.name.trim().length < 2) {
+    errors.name = "Name must be at least 2 characters";
+  }
+
+  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    errors.email = "Please enter a valid email";
+  }
+
+  if (!data.message || data.message.trim().length < 10) {
+    errors.message = "Please tell us a bit more (10+ characters)";
+  }
+
+  if (data.eventDate) {
+    const eventDate = new Date(data.eventDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (eventDate < today) {
+      errors.eventDate = "Event date must be in the future";
+    }
+  }
+
+  return errors;
+}
+
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const searchParams = useSearchParams();
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  // Pre-fill message when arriving from "Book This Style" in gallery
+  useEffect(() => {
+    const style = searchParams.get("style");
+    if (style && messageRef.current && !messageRef.current.value) {
+      messageRef.current.value = `Hi! I'm interested in a style similar to: "${style}"\n\n`;
+      messageRef.current.focus();
+    }
+  }, [searchParams]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("loading");
-
     const form = e.currentTarget;
+
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
@@ -31,6 +82,12 @@ export default function ContactForm() {
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
+    const errors = validate(data);
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    setStatus("loading");
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -38,8 +95,15 @@ export default function ContactForm() {
         body: JSON.stringify(data),
       });
 
+      if (res.status === 429) {
+        setStatus("error");
+        setFieldErrors({ name: "Too many requests. Please wait a minute and try again." });
+        return;
+      }
+
       if (res.ok) {
         setStatus("success");
+        setFieldErrors({});
         form.reset();
       } else {
         setStatus("error");
@@ -49,11 +113,19 @@ export default function ContactForm() {
     }
   }
 
+  function clearFieldError(field: keyof FieldErrors) {
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  }
+
   const inputClass =
     "w-full border border-rose bg-white px-4 py-3 text-sm text-charcoal placeholder-charcoal-light/60 focus:outline-none focus:border-charcoal transition-colors";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       {/* Name + Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
@@ -66,7 +138,11 @@ export default function ContactForm() {
             required
             placeholder="Your full name"
             className={inputClass}
+            onChange={() => clearFieldError("name")}
           />
+          {fieldErrors.name && (
+            <p className="text-red-600 text-xs mt-1">{fieldErrors.name}</p>
+          )}
         </div>
         <div>
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
@@ -78,7 +154,11 @@ export default function ContactForm() {
             required
             placeholder="you@email.com"
             className={inputClass}
+            onChange={() => clearFieldError("email")}
           />
+          {fieldErrors.email && (
+            <p className="text-red-600 text-xs mt-1">{fieldErrors.email}</p>
+          )}
         </div>
       </div>
 
@@ -103,7 +183,11 @@ export default function ContactForm() {
             name="eventDate"
             type="date"
             className={inputClass}
+            onChange={() => clearFieldError("eventDate")}
           />
+          {fieldErrors.eventDate && (
+            <p className="text-red-600 text-xs mt-1">{fieldErrors.eventDate}</p>
+          )}
         </div>
       </div>
 
@@ -128,12 +212,17 @@ export default function ContactForm() {
           Tell Us About Your Vision *
         </label>
         <textarea
+          ref={messageRef}
           name="message"
           required
           rows={5}
           placeholder="Describe your event, color palette, style preferences, or anything else you'd like us to know..."
           className={`${inputClass} resize-none`}
+          onChange={() => clearFieldError("message")}
         />
+        {fieldErrors.message && (
+          <p className="text-red-600 text-xs mt-1">{fieldErrors.message}</p>
+        )}
       </div>
 
       {/* Submit */}
@@ -159,7 +248,7 @@ export default function ContactForm() {
           Thank you! We&apos;ll be in touch within 1–2 business days.
         </div>
       )}
-      {status === "error" && (
+      {status === "error" && !fieldErrors.name && (
         <div className="flex items-center gap-2 text-sm text-red-700 bg-red-50 border border-red-200 px-4 py-3">
           <AlertCircle size={16} />
           Something went wrong. Please try again or DM us on Instagram.

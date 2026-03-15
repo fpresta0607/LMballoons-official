@@ -1,14 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
-import { ScrollExpandHero } from "@/components/ui/scroll-expansion-hero";
-
-const heroImages = [
-  { src: "/images/LEDCenterpiece_Home.jpeg", alt: "Elegant LED centerpiece display" },
-  { src: "/images/BalloonGarlandBackdrop.jpeg", alt: "Balloon garland backdrop" },
-  { src: "/images/BirthdayPartyArch.jpeg", alt: "Birthday party arch" },
-  { src: "/images/StPatricksGarland.jpeg", alt: "St. Patrick's Day garland" },
-];
+import { Hero } from "@/components/ui/hero";
 
 const services = [
   {
@@ -24,21 +17,24 @@ const services = [
 ];
 
 const featuredImages = [
-  { src: "/images/BalloonGarlandBackdrop.jpeg", alt: "Balloon garland backdrop" },
-  { src: "/images/BirthdayPartyArch.jpeg", alt: "Birthday party arch" },
-  { src: "/images/LEDcenterpiece3.jpeg", alt: "LED centerpiece display" },
-  { src: "/images/LedCenterpiece2.jpeg", alt: "LED centerpiece design" },
-  { src: "/images/ValentinesCenterpiece.jpeg", alt: "Valentine's centerpiece" },
-  { src: "/images/ValentinesPillar.jpeg", alt: "Valentine's pillar display" },
+  { src: "/images/generated/BalloonGarlandBackdrop.png", alt: "Balloon garland backdrop" },
+  { src: "/images/generated/BirthdayPartyArch.png", alt: "Birthday party arch" },
+  { src: "/images/generated/LEDcenterpiece3.png", alt: "LED centerpiece display" },
+  { src: "/images/generated/LedCenterpiece2.png", alt: "LED centerpiece design" },
+  { src: "/images/generated/ValentinesCenterpiece.png", alt: "Valentine's centerpiece" },
+  { src: "/images/generated/ValentinesPillar.png", alt: "Valentine's pillar display" },
 ];
 
 export default function HomePage() {
   return (
-    <ScrollExpandHero
-      images={heroImages}
-      bgImageSrc="/images/StPatricksLobby.jpeg"
-      title="Balloons + Event Decor"
-    >
+    <>
+      <Hero
+        imageSrc="/images/generated/LEDCenterpiece_Home.png"
+        imageAlt="Elegant LED balloon centerpieces at a dinner table"
+        title="Balloons & Event Decor"
+        tagline="Custom Balloon Artistry for Every Celebration"
+      />
+
       {/* Services */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -111,7 +107,7 @@ export default function HomePage() {
           <div className="flex items-center justify-center">
             <div className="relative w-52 h-52 md:w-64 md:h-64 drop-shadow-[0_20px_50px_rgba(61,50,48,0.18)]">
               <Image
-                src="/images/Logo.jpg"
+                src="/images/logo.png"
                 alt="LM Designs & Balloons Co. logo"
                 fill
                 className="object-contain"
@@ -166,6 +162,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-    </ScrollExpandHero>
+    </>
   );
 }

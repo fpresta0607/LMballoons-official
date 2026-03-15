@@ -16,7 +16,11 @@
       "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' install next@latest 2>&1\")",
       "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' run build 2>&1\")",
       "Bash(bash /c/Users/fpres/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.2/skills/brainstorming/scripts/start-server.sh --project-dir /c/dev/LM-Balloons)",
-      "Bash(bash /c/Users/fpres/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.2/skills/brainstorming/scripts/stop-server.sh /c/dev/LM-Balloons/.superpowers/brainstorm/67415-1773602821 2>/dev/null; echo \"done\")"
+      "Bash(bash /c/Users/fpres/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.2/skills/brainstorming/scripts/stop-server.sh /c/dev/LM-Balloons/.superpowers/brainstorm/67415-1773602821 2>/dev/null; echo \"done\")",
+      "mcp__nanobanana-mcp__set_model",
+      "mcp__nanobanana-mcp__set_aspect_ratio",
+      "mcp__nanobanana-mcp__gemini_edit_image",
+      "Bash(npx sharp-cli:*)"
     ]
   }
 }

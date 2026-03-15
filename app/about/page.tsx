@@ -73,7 +73,7 @@ export default function AboutPage() {
           </div>
           <div className="relative aspect-square overflow-hidden">
             <Image
-              src="/images/StPatricksGarland.jpeg"
+              src="/images/generated/StPatricksGarland.png"
               alt="LM Designs balloon artistry"
               fill
               className="object-cover"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -9,7 +10,6 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -19,52 +19,50 @@ export default function Navbar() {
   const isHome = pathname === "/";
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.25);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Transparent only on homepage when not scrolled and mobile menu is closed
   const isTransparent = isHome && !scrolled && !open;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isTransparent
-          ? "bg-transparent border-b border-transparent"
-          : "bg-white/90 backdrop-blur-sm border-b border-rose"
+          ? "bg-transparent"
+          : "bg-white/95 backdrop-blur-md shadow-sm"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex flex-col leading-none">
-          <span
-            className={`font-serif text-xl font-bold tracking-widest uppercase transition-colors duration-300 ${
-              isTransparent ? "text-white" : "text-charcoal"
+        <Link href="/" className="relative h-10 w-10 shrink-0">
+          <Image
+            src="/images/logo.png"
+            alt="LM Designs & Balloons Co."
+            fill
+            className={`object-contain transition-all duration-500 ${
+              isTransparent ? "brightness-0 invert" : ""
             }`}
-          >
-            LM
-          </span>
-          <span
-            className={`text-[9px] tracking-[0.25em] uppercase transition-colors duration-300 ${
-              isTransparent ? "text-white/70" : "text-charcoal-light"
-            }`}
-          >
-            Designs &amp; Balloons Co.
-          </span>
+            sizes="40px"
+          />
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-10">
           {links.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`text-sm tracking-widest uppercase transition-colors duration-300 ${
-                  isTransparent
-                    ? "text-white/80 hover:text-white"
-                    : "text-charcoal-light hover:text-charcoal"
+                className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 ${
+                  pathname === l.href
+                    ? isTransparent
+                      ? "text-white"
+                      : "text-charcoal"
+                    : isTransparent
+                      ? "text-white/70 hover:text-white"
+                      : "text-charcoal-light hover:text-charcoal"
                 }`}
               >
                 {l.label}
@@ -74,9 +72,9 @@ export default function Navbar() {
           <li>
             <Link
               href="/contact"
-              className={`text-sm tracking-widest uppercase px-5 py-2 transition-all duration-300 ${
+              className={`text-xs tracking-[0.2em] uppercase px-6 py-2 transition-all duration-300 ${
                 isTransparent
-                  ? "border border-white/50 text-white hover:bg-white/10"
+                  ? "border border-white/40 text-white hover:bg-white/10"
                   : "bg-charcoal text-white hover:bg-black"
               }`}
             >
@@ -93,19 +91,23 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-rose px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-white/95 backdrop-blur-md px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-sm tracking-widest uppercase text-charcoal-light hover:text-charcoal transition-colors"
+              className={`text-xs tracking-[0.2em] uppercase transition-colors ${
+                pathname === l.href
+                  ? "text-charcoal"
+                  : "text-charcoal-light hover:text-charcoal"
+              }`}
             >
               {l.label}
             </Link>
@@ -113,7 +115,7 @@ export default function Navbar() {
           <Link
             href="/contact"
             onClick={() => setOpen(false)}
-            className="text-sm tracking-widest uppercase bg-charcoal text-white px-5 py-2 text-center hover:bg-black transition-colors"
+            className="text-xs tracking-[0.2em] uppercase bg-charcoal text-white px-6 py-3 text-center hover:bg-black transition-colors"
           >
             Book Now
           </Link>
