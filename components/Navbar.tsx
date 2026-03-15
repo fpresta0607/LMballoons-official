@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const links = [
@@ -13,16 +14,43 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Transparent only on homepage when not scrolled and mobile menu is closed
+  const isTransparent = isHome && !scrolled && !open;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-rose">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isTransparent
+          ? "bg-transparent border-b border-transparent"
+          : "bg-white/90 backdrop-blur-sm border-b border-rose"
+      }`}
+    >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex flex-col leading-none">
-          <span className="font-serif text-xl font-bold text-charcoal tracking-widest uppercase">
+          <span
+            className={`font-serif text-xl font-bold tracking-widest uppercase transition-colors duration-300 ${
+              isTransparent ? "text-white" : "text-charcoal"
+            }`}
+          >
             LM
           </span>
-          <span className="text-[9px] tracking-[0.25em] text-charcoal-light uppercase">
+          <span
+            className={`text-[9px] tracking-[0.25em] uppercase transition-colors duration-300 ${
+              isTransparent ? "text-white/70" : "text-charcoal-light"
+            }`}
+          >
             Designs &amp; Balloons Co.
           </span>
         </Link>
@@ -33,7 +61,11 @@ export default function Navbar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="text-sm tracking-widest uppercase text-charcoal-light hover:text-charcoal transition-colors"
+                className={`text-sm tracking-widest uppercase transition-colors duration-300 ${
+                  isTransparent
+                    ? "text-white/80 hover:text-white"
+                    : "text-charcoal-light hover:text-charcoal"
+                }`}
               >
                 {l.label}
               </Link>
@@ -42,7 +74,11 @@ export default function Navbar() {
           <li>
             <Link
               href="/contact"
-              className="text-sm tracking-widest uppercase bg-charcoal text-white px-5 py-2 hover:bg-black transition-colors"
+              className={`text-sm tracking-widest uppercase px-5 py-2 transition-all duration-300 ${
+                isTransparent
+                  ? "border border-white/50 text-white hover:bg-white/10"
+                  : "bg-charcoal text-white hover:bg-black"
+              }`}
             >
               Book Now
             </Link>
@@ -51,7 +87,9 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-charcoal"
+          className={`md:hidden transition-colors duration-300 ${
+            isTransparent ? "text-white" : "text-charcoal"
+          }`}
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >

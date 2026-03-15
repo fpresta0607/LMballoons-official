@@ -14,7 +14,9 @@
       "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npx.cmd'' create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias ''@/*'' --yes 2>&1\")",
       "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' install 2>&1\")",
       "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' install next@latest 2>&1\")",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' run build 2>&1\")"
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' run build 2>&1\")",
+      "Bash(bash /c/Users/fpres/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.2/skills/brainstorming/scripts/start-server.sh --project-dir /c/dev/LM-Balloons)",
+      "Bash(bash /c/Users/fpres/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.2/skills/brainstorming/scripts/stop-server.sh /c/dev/LM-Balloons/.superpowers/brainstorm/67415-1773602821 2>/dev/null; echo \"done\")"
     ]
   }
 }

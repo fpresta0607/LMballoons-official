@@ -1,6 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
+import { ScrollExpandHero } from "@/components/ui/scroll-expansion-hero";
+
+const heroImages = [
+  { src: "/images/LEDCenterpiece_Home.jpeg", alt: "Elegant LED centerpiece display" },
+  { src: "/images/BalloonGarlandBackdrop.jpeg", alt: "Balloon garland backdrop" },
+  { src: "/images/BirthdayPartyArch.jpeg", alt: "Birthday party arch" },
+  { src: "/images/StPatricksGarland.jpeg", alt: "St. Patrick's Day garland" },
+];
 
 const services = [
   {
@@ -16,75 +24,21 @@ const services = [
 ];
 
 const featuredImages = [
-  {
-    src: "/images/BalloonGarlandBackdrop.jpeg",
-    alt: "Balloon garland backdrop",
-  },
-  {
-    src: "/images/BirthdayPartyArch.jpeg",
-    alt: "Birthday party arch",
-  },
-  {
-    src: "/images/LEDcenterpiece3.jpeg",
-    alt: "LED centerpiece display",
-  },
-  {
-    src: "/images/LedCenterpiece2.jpeg",
-    alt: "LED centerpiece design",
-  },
-  {
-    src: "/images/ValentinesCenterpiece.jpeg",
-    alt: "Valentine's centerpiece",
-  },
-  {
-    src: "/images/ValentinesPillar.jpeg",
-    alt: "Valentine's pillar display",
-  },
+  { src: "/images/BalloonGarlandBackdrop.jpeg", alt: "Balloon garland backdrop" },
+  { src: "/images/BirthdayPartyArch.jpeg", alt: "Birthday party arch" },
+  { src: "/images/LEDcenterpiece3.jpeg", alt: "LED centerpiece display" },
+  { src: "/images/LedCenterpiece2.jpeg", alt: "LED centerpiece design" },
+  { src: "/images/ValentinesCenterpiece.jpeg", alt: "Valentine's centerpiece" },
+  { src: "/images/ValentinesPillar.jpeg", alt: "Valentine's pillar display" },
 ];
 
 export default function HomePage() {
   return (
-    <>
-      {/* Hero */}
-      <section className="relative min-h-[92vh] flex items-center bg-black overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/LEDCenterpiece_Home.jpeg"
-            alt="Elegant LED centerpiece display"
-            fill
-            className="object-cover object-center opacity-80"
-            priority
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent" />
-        <div className="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
-          <p className="text-xs tracking-[0.3em] uppercase text-rose/70 mb-4">
-            LM Designs &amp; Balloons Co.
-          </p>
-          <h1 className="font-serif text-5xl md:text-7xl text-white leading-tight mb-6 max-w-2xl">
-            Balloons + Event Decor for Life&apos;s Big Moments
-          </h1>
-          <p className="text-white/60 text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
-            Custom balloon design for birthdays, parties, and every celebration worth remembering.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-white text-charcoal px-8 py-4 text-sm tracking-widest uppercase hover:bg-cream transition-colors"
-            >
-              Book Your Event
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/gallery"
-              className="inline-flex items-center justify-center gap-2 border border-white/50 text-white px-8 py-4 text-sm tracking-widest uppercase hover:border-white hover:bg-white/10 transition-colors"
-            >
-              View Gallery
-            </Link>
-          </div>
-        </div>
-      </section>
-
+    <ScrollExpandHero
+      images={heroImages}
+      bgImageSrc="/images/StPatricksLobby.jpeg"
+      title="Balloons + Event Decor"
+    >
       {/* Services */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -212,6 +166,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-    </>
+    </ScrollExpandHero>
   );
 }
