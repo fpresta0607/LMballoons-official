@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(cmd.exe /c \"where python\")",
+      "Bash(cmd.exe /c \"where node && node --version && npm --version\")",
+      "Bash(powershell.exe -Command \"Get-Command python -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; Get-Command python3 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -Command \"Get-Command node -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -Command \":*)",
+      "WebFetch(domain:www.instagram.com)",
+      "Bash(cmd.exe /c \"npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"\"@/*\"\" --yes\")",
+      "Bash(cmd.exe /c \"dir\")",
+      "Bash(powershell.exe -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias ''@/*'' --yes 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npx.cmd'' create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias ''@/*'' --yes 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' install 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' install next@latest 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Set-Location ''C:\\\\Users\\\\steve\\\\Documents\\\\Coding Projects\\\\LM Balloons''; & ''C:\\\\Program Files\\\\nodejs\\\\npm.cmd'' run build 2>&1\")"
+    ]
+  }
+}

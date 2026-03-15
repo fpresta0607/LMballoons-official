@@ -1,0 +1,112 @@
+import { Instagram, Mail, MapPin } from "lucide-react";
+import ContactForm from "@/components/ContactForm";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact | LM Designs & Balloons Co.",
+  description:
+    "Book LM Designs & Balloons Co. for your next event. Fill out our inquiry form and we'll get back to you shortly.",
+};
+
+export default function ContactPage() {
+  return (
+    <>
+      {/* Page Header */}
+      <section className="bg-cream py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
+            Get in Touch
+          </p>
+          <h1 className="font-serif text-5xl md:text-6xl text-charcoal leading-tight max-w-lg">
+            Let&apos;s Plan Your Perfect Event
+          </h1>
+        </div>
+      </section>
+
+      {/* Form + Info */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-16">
+          {/* Form */}
+          <div className="lg:col-span-2">
+            <ContactForm />
+
+            {/* Prefer email */}
+            <div className="mt-8 pt-8 border-t border-rose">
+              <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-2">
+                Prefer Email?
+              </p>
+              <a
+                href="mailto:LM.Designs.Balloons.Co@gmail.com"
+                className="text-sm text-charcoal hover:text-charcoal-light transition-colors underline"
+              >
+                LM.Designs.Balloons.Co@gmail.com
+              </a>
+            </div>
+          </div>
+
+          {/* Info sidebar */}
+          <div className="space-y-8">
+            <div>
+              <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-5">
+                Contact Info
+              </p>
+              <ul className="space-y-5">
+                <li className="flex items-start gap-3">
+                  <Instagram size={18} className="text-charcoal-light mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-xs tracking-widest uppercase text-charcoal-light mb-1">
+                      Instagram
+                    </p>
+                    <a
+                      href="https://www.instagram.com/lmdesignsandco/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-charcoal hover:text-charcoal-light transition-colors underline"
+                    >
+                      @lmdesignsandco
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Mail size={18} className="text-charcoal-light mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-xs tracking-widest uppercase text-charcoal-light mb-1">
+                      Email
+                    </p>
+                    <a
+                      href="mailto:LM.Designs.Balloons.Co@gmail.com"
+                      className="text-sm text-charcoal hover:text-charcoal-light transition-colors"
+                    >
+                      LM.Designs.Balloons.Co@gmail.com
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MapPin size={18} className="text-charcoal-light mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-xs tracking-widest uppercase text-charcoal-light mb-1">
+                      Location
+                    </p>
+                    <p className="text-sm text-charcoal">
+                      Chicagoland, IL
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-6 bg-cream border border-rose">
+              <p className="font-serif text-lg text-charcoal mb-2">
+                Booking Tips
+              </p>
+              <ul className="text-sm text-charcoal-light space-y-2 leading-relaxed">
+                <li>• Book 3 to 4 weeks in advance</li>
+                <li>• Include your venue address if known</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

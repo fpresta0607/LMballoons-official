@@ -1,0 +1,68 @@
+import Link from "next/link";
+import { Instagram } from "lucide-react";
+
+export default function Footer() {
+  return (
+    <footer className="bg-cream border-t border-rose">
+      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Brand */}
+        <div>
+          <p className="font-serif text-2xl tracking-widest uppercase mb-2 text-charcoal">LM</p>
+          <p className="text-xs tracking-[0.25em] uppercase text-charcoal-light mb-4">
+            Designs &amp; Balloons Co.
+          </p>
+          <p className="text-sm text-charcoal-light leading-relaxed">
+            Bringing your celebrations to life with bespoke balloon artistry.
+          </p>
+        </div>
+
+        {/* Navigation */}
+        <div>
+          <p className="text-xs tracking-[0.2em] uppercase text-charcoal-light mb-4">Navigate</p>
+          <ul className="space-y-2">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/gallery", label: "Gallery" },
+              { href: "/about", label: "About" },
+              { href: "/contact", label: "Contact" },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="text-sm text-charcoal-light hover:text-charcoal transition-colors"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Social */}
+        <div>
+          <p className="text-xs tracking-[0.2em] uppercase text-charcoal-light mb-4">Follow Along</p>
+          <a
+            href="https://www.instagram.com/lmdesignsandco/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-charcoal-light hover:text-charcoal transition-colors"
+          >
+            <Instagram size={16} />
+            @lmdesignsandco
+          </a>
+          <p className="mt-4 text-sm text-charcoal-light">
+            For inquiries, fill out our{" "}
+            <Link href="/contact" className="underline hover:text-charcoal transition-colors">
+              contact form
+            </Link>
+            .
+          </p>
+        </div>
+      </div>
+
+      <div className="border-t border-rose text-center py-4 text-xs text-charcoal-light tracking-widest uppercase">
+        © {new Date().getFullYear()} LM Designs &amp; Balloons Co. All rights reserved.
+      </div>
+    </footer>
+  );
+}
