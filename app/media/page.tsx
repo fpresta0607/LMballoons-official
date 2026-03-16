@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Lightbox } from "@/components/ui/lightbox";
-import { useInView } from "@/hooks/use-in-view";
 
 const media = [
   {
@@ -66,8 +65,6 @@ const media = [
 
 export default function MediaPage() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const feedView = useInView();
-  const ctaView = useInView();
 
   return (
     <>
@@ -88,15 +85,11 @@ export default function MediaPage() {
 
       {/* Feed */}
       <section className="py-12 md:py-20 bg-white">
-        <div
-          ref={feedView.ref}
-          data-in-view={feedView.isInView}
-          className="max-w-2xl mx-auto px-6 flex flex-col gap-10 md:gap-14"
-        >
+        <div className="max-w-2xl mx-auto px-6 flex flex-col gap-10 md:gap-14">
           {media.map((item, i) => (
             <article
               key={item.src}
-              className={`border border-rose transition-all duration-500 hover:glow-warm hover:-translate-y-1 group scroll-fade stagger-${Math.min(i + 1, 9)}`}
+              className="border border-rose transition-all duration-500 hover:glow-warm hover:-translate-y-1 group"
             >
               {/* Image */}
               <div
@@ -145,22 +138,20 @@ export default function MediaPage() {
 
       {/* CTA */}
       <section className="bg-cream py-12 md:py-16">
-        <div ref={ctaView.ref} data-in-view={ctaView.isInView} className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="font-serif text-3xl text-charcoal mb-4 scroll-fade">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="font-serif text-3xl text-charcoal mb-4">
             Love What You See?
           </h2>
-          <p className="text-charcoal-light mb-8 max-w-md mx-auto scroll-fade stagger-2">
+          <p className="text-charcoal-light mb-8 max-w-md mx-auto">
             Let&apos;s bring your vision to life. Contact us to discuss your event.
           </p>
-          <div className="scroll-fade stagger-3">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
-            >
-              Book Your Event
-              <ArrowRight size={16} />
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
+          >
+            Book Your Event
+            <ArrowRight size={16} />
+          </Link>
         </div>
       </section>
     </>
