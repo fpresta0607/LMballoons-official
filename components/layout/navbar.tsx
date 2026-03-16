@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "/", label: "Home" },
-  { href: "/gallery", label: "Media" },
+  { href: "/media", label: "Media" },
   { href: "/about", label: "About" },
 ];
 
