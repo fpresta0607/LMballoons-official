@@ -8,59 +8,64 @@ import { Lightbox } from "@/components/ui/lightbox";
 
 const media = [
   {
+    src: "/images/generated/BalloonGarlandBackdrop.png",
+    alt: "Balloon garland backdrop",
+    title: "Garland Backdrop",
+  },
+  {
     src: "/images/generated/LedCenterpiece2.png",
     alt: "LED centerpiece design",
     title: "LED Centerpiece",
-    description: "A warm LED centerpiece designed to set the mood at any tablescape. Soft lighting meets sculpted balloon artistry.",
+  },
+  {
+    src: "/images/generated/BirthdayPartyArch.png",
+    alt: "Birthday party arch",
+    title: "Birthday Arch",
   },
   {
     src: "/images/generated/LEDcenterpiece3.png",
     alt: "LED centerpiece",
     title: "Glowing Arrangement",
-    description: "Custom LED-lit balloon arrangement perfect for intimate dinners, cocktail hours, and reception tables.",
   },
   {
-    src: "/images/generated/LEDCenterpiece_Home.png",
-    alt: "LED centerpiece event display",
-    title: "Event Display",
-    description: "Full event centerpiece setup featuring coordinated LED balloon designs across multiple tables.",
+    src: "/images/generated/StPatricksGarland.png",
+    alt: "St. Patrick's Day garland",
+    title: "St. Patrick\u2019s Garland",
   },
   {
     src: "/images/generated/ValentinesCenterpiece.png",
     alt: "Valentine's centerpiece",
     title: "Valentine\u2019s Centerpiece",
-    description: "Romantic balloon centerpiece in reds and pinks, designed for Valentine\u2019s Day celebrations and date nights.",
+  },
+  {
+    src: "/images/generated/LEDCenterpiece_Home.png",
+    alt: "LED centerpiece event display",
+    title: "Event Display",
   },
   {
     src: "/images/generated/ValentinesPillar.png",
     alt: "Valentine's pillar display",
     title: "Valentine\u2019s Pillar",
-    description: "Elegant pillar arrangement with cascading balloon garlands in a Valentine\u2019s color palette.",
-  },
-  {
-    src: "/images/generated/BirthdayPartyArch.png",
-    alt: "Birthday party arch",
-    title: "Birthday Party Arch",
-    description: "Statement balloon arch framing the party space. Custom colors matched to the birthday theme.",
-  },
-  {
-    src: "/images/generated/BalloonGarlandBackdrop.png",
-    alt: "Balloon garland backdrop",
-    title: "Garland Backdrop",
-    description: "Full-wall balloon garland backdrop for photo ops, dessert tables, and stage areas.",
-  },
-  {
-    src: "/images/generated/StPatricksGarland.png",
-    alt: "St. Patrick's Day garland",
-    title: "St. Patrick\u2019s Day Garland",
-    description: "Festive green and gold balloon garland bringing seasonal spirit to any venue or storefront.",
   },
   {
     src: "/images/generated/StPatricksLobby.png",
     alt: "St. Patrick's Day lobby display",
     title: "Lobby Installation",
-    description: "Grand lobby balloon installation designed for commercial spaces, welcoming guests with themed décor.",
   },
+];
+
+// Bento grid layout pattern — maps index to grid span classes
+// Creates an asymmetric, magazine-style layout
+const bentoPattern = [
+  "col-span-2 row-span-2",  // 0: large hero tile
+  "col-span-1 row-span-1",  // 1: standard
+  "col-span-1 row-span-2",  // 2: tall
+  "col-span-1 row-span-1",  // 3: standard
+  "col-span-1 row-span-1",  // 4: standard
+  "col-span-2 row-span-1",  // 5: wide
+  "col-span-1 row-span-1",  // 6: standard
+  "col-span-1 row-span-1",  // 7: standard
+  "col-span-1 row-span-1",  // 8: standard
 ];
 
 export default function MediaPage() {
@@ -83,46 +88,50 @@ export default function MediaPage() {
         </div>
       </section>
 
-      {/* Feed */}
+      {/* Bento Grid */}
       <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-2xl mx-auto px-6 flex flex-col gap-10 md:gap-14">
-          {media.map((item, i) => (
-            <article
-              key={item.src}
-              className="border border-rose transition-all duration-500 hover:glow-warm hover:-translate-y-1 group"
-            >
-              {/* Image */}
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[200px] sm:auto-rows-[240px] md:auto-rows-[280px] gap-2 sm:gap-3">
+            {media.map((item, i) => (
               <div
-                className="relative aspect-[4/3] overflow-hidden cursor-pointer"
+                key={item.src}
+                className={`relative overflow-hidden cursor-pointer group ${bentoPattern[i]} transition-all duration-500 hover:glow-warm-hover hover:z-10`}
                 onClick={() => setLightboxIndex(i)}
               >
                 <Image
                   src={item.src}
                   alt={item.alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-all duration-300 flex items-end p-4 sm:p-6">
-                  <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+
+                {/* Permanent subtle gradient at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-300" />
+
+                {/* Title — always visible at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
+                  <h2 className="font-serif text-sm sm:text-base md:text-lg text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] transition-transform duration-300 group-hover:-translate-y-1">
+                    {item.title}
+                  </h2>
+
+                  {/* Book This Style — slides up on hover */}
+                  <div className="translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 mt-2">
                     <Link
                       href={`/contact?style=${encodeURIComponent(item.alt)}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 text-white text-xs tracking-widest uppercase border-b border-white pb-0.5 hover:text-cream transition-colors"
+                      className="inline-flex items-center gap-1.5 text-white text-[10px] sm:text-xs tracking-widest uppercase border-b border-white/70 pb-0.5 hover:text-cream transition-colors"
                     >
                       Book This Style
-                      <ArrowRight size={12} />
+                      <ArrowRight size={11} />
                     </Link>
                   </div>
                 </div>
               </div>
-
-              {/* Card Content */}
-              <div className="p-5 sm:p-6">
-                <h2 className="font-serif text-xl text-charcoal mb-2">{item.title}</h2>
-                <p className="text-sm text-charcoal-light leading-relaxed">{item.description}</p>
-              </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
