@@ -10,7 +10,7 @@ const services = [
   {
     icon: <Sparkles size={28} />,
     title: "Custom Balloon Designs",
-    desc: "Arches, garlands, centerpieces, columns, and sculptures, built from scratch around your colors, theme, and vision.",
+    desc: "Arches, garlands, centerpieces, columns, and more, built from scratch around your colors, theme, and vision.",
   },
   {
     icon: <Star size={28} />,
@@ -115,7 +115,7 @@ export default function HomePage() {
       <section className="py-12 md:py-20 bg-white">
         <div ref={aboutView.ref} data-in-view={aboutView.isInView} className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="flex items-center justify-center scroll-fade">
-            <div className="relative w-52 h-52 md:w-64 md:h-64 drop-shadow-[0_20px_50px_rgba(61,50,48,0.18)]">
+            <div className="relative w-64 h-64 md:w-80 md:h-80 drop-shadow-[0_20px_50px_rgba(61,50,48,0.18)]">
               <Image
                 src="/images/logo.png"
                 alt="LM Designs & Balloons Co. logo"
@@ -132,16 +132,15 @@ export default function HomePage() {
               Meet Lindsey &amp; Marina
             </h2>
             <p className="text-charcoal-light leading-relaxed mb-4">
-              We&apos;re Lindsey and Marina, the duo behind LM Designs, with a shared
-              passion for design, celebration, and making people smile. What started
-              as a love for beautiful events has grown into something we pour our
-              hearts into every single day.
+              Hi, we&apos;re Lindsey and Marina! What started as a shared
+              passion for beautiful events grew into a business we genuinely
+              love showing up for. We care a lot about the details, and even
+              more about the people behind each celebration.
             </p>
             <p className="text-charcoal-light leading-relaxed mb-8">
-              We&apos;ve been dreaming up custom designs for years, and we still
-              get just as excited about every new event. Whether it&apos;s your
-              birthday, your big launch, or any milestone worth celebrating, we
-              can&apos;t wait to meet you and make your moment truly special.
+              No two events are the same, and we wouldn&apos;t have it any
+              other way. Whether it&apos;s a birthday, a brand launch, or any
+              moment worth marking, we&apos;d love to be part of it.
             </p>
             <Link
               href="/about"

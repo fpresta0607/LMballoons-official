@@ -3,10 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { Lightbox } from "@/components/ui/lightbox";
 
-const media = [
+type MediaItem = {
+  src: string;
+  alt: string;
+  title: string;
+  type?: "image" | "video";
+};
+
+const mediaItems: MediaItem[] = [
   {
     src: "/images/generated/BalloonGarlandBackdrop.png",
     alt: "Balloon garland backdrop",
@@ -52,10 +59,40 @@ const media = [
     alt: "St. Patrick's Day lobby display",
     title: "Lobby Installation",
   },
+  {
+    src: "/images/generated/BirthdayBalloon.jpg",
+    alt: "Birthday balloon design",
+    title: "Birthday Celebration",
+  },
+  {
+    src: "/videos/BackdropVideo.mov",
+    alt: "Balloon backdrop installation",
+    title: "Backdrop Installation",
+    type: "video",
+  },
+  {
+    src: "/images/generated/CenterpieceCheetah.jpeg",
+    alt: "Cheetah print centerpiece",
+    title: "Cheetah Centerpiece",
+  },
+  {
+    src: "/images/generated/CenterpieceCheetah2.jpeg",
+    alt: "Cheetah print centerpiece arrangement",
+    title: "Cheetah Arrangement",
+  },
 ];
 
-// Bento grid layout pattern — maps index to grid span classes
-// Creates an asymmetric, magazine-style layout
+// Assign lightbox index to images only (videos get null)
+const imageItems = mediaItems.filter((item) => item.type !== "video");
+const media = (() => {
+  let imgCount = 0;
+  return mediaItems.map((item) => ({
+    ...item,
+    lightboxIndex: item.type === "video" ? null : imgCount++,
+  }));
+})();
+
+// Bento grid layout pattern
 const bentoPattern = [
   "col-span-2 row-span-2",  // 0: large hero tile
   "col-span-1 row-span-1",  // 1: standard
@@ -66,6 +103,10 @@ const bentoPattern = [
   "col-span-1 row-span-1",  // 6: standard
   "col-span-1 row-span-1",  // 7: standard
   "col-span-1 row-span-1",  // 8: standard
+  "col-span-1 row-span-1",  // 9: standard
+  "col-span-2 row-span-2",  // 10: large featured (video)
+  "col-span-1 row-span-1",  // 11: standard
+  "col-span-1 row-span-1",  // 12: standard
 ];
 
 export default function MediaPage() {
@@ -95,15 +136,28 @@ export default function MediaPage() {
             {media.map((item, i) => (
               <div
                 key={item.src}
-                className={`relative overflow-hidden cursor-pointer group ${bentoPattern[i]} transition-all duration-500 hover:glow-warm-hover hover:z-10`}
-                onClick={() => setLightboxIndex(i)}
+                className={`relative overflow-hidden group ${bentoPattern[i]} transition-all duration-500 hover:glow-warm-hover hover:z-10 ${item.type !== "video" ? "cursor-pointer" : ""}`}
+                onClick={() => {
+                  if (item.lightboxIndex !== null) setLightboxIndex(item.lightboxIndex);
+                }}
               >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                {item.type === "video" ? (
+                  <video
+                    src={item.src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                )}
 
                 {/* Permanent subtle gradient at bottom */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
@@ -111,23 +165,32 @@ export default function MediaPage() {
                 {/* Hover overlay */}
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-300" />
 
+                {/* Video play indicator */}
+                {item.type === "video" && (
+                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2">
+                    <Play size={16} className="text-white fill-white" />
+                  </div>
+                )}
+
                 {/* Title — always visible at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
                   <h2 className="font-serif text-sm sm:text-base md:text-lg text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] transition-transform duration-300 group-hover:-translate-y-1">
                     {item.title}
                   </h2>
 
-                  {/* Book This Style — slides up on hover */}
-                  <div className="translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 mt-2">
-                    <Link
-                      href={`/contact?style=${encodeURIComponent(item.alt)}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 text-white text-[10px] sm:text-xs tracking-widest uppercase border-b border-white/70 pb-0.5 hover:text-cream transition-colors"
-                    >
-                      Book This Style
-                      <ArrowRight size={11} />
-                    </Link>
-                  </div>
+                  {/* Book This Style — slides up on hover (images only) */}
+                  {item.type !== "video" && (
+                    <div className="translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 mt-2">
+                      <Link
+                        href={`/contact?style=${encodeURIComponent(item.alt)}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 text-white text-[10px] sm:text-xs tracking-widest uppercase border-b border-white/70 pb-0.5 hover:text-cream transition-colors"
+                      >
+                        Book This Style
+                        <ArrowRight size={11} />
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -135,10 +198,10 @@ export default function MediaPage() {
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Lightbox (images only) */}
       {lightboxIndex !== null && (
         <Lightbox
-          images={media}
+          images={imageItems}
           currentIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onNavigate={setLightboxIndex}

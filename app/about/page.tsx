@@ -48,18 +48,16 @@ export default function AboutPage() {
         <ScrollReveal className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           <div className="scroll-fade">
             <p className="text-charcoal-light leading-relaxed mb-5">
-              LM Designs &amp; Balloons Co. was born from a simple belief: that
-              every event, no matter the size, deserves décor that feels
-              intentional and extraordinary.
+              LM Designs &amp; Balloons Co. transforms spaces through custom
+              balloon installations crafted for celebrations, brand moments,
+              and environments that demand something extraordinary.
             </p>
             <p className="text-charcoal-light leading-relaxed mb-5">
-              What started as a creative passion quickly grew into a full-service
-              balloon design studio. Today, we partner with families, businesses,
-              and event planners across the area to create stunning, custom
-              balloon installations that elevate any space.
+              Every installation starts with you. We collaborate closely with
+              each client to bring a vision to life that feels intentional,
+              elevated, and completely one of a kind.
             </p>
             <p className="text-charcoal-light leading-relaxed">
-              We&apos;re proud to be a trusted name in the events community.
               Follow along on Instagram{" "}
               <a
                 href="https://www.instagram.com/lmdesignsandco/"
@@ -69,12 +67,12 @@ export default function AboutPage() {
               >
                 @lmdesignsandco
               </a>{" "}
-              to see our latest work.
+              to see our work.
             </p>
           </div>
           <div className="relative aspect-square overflow-hidden scroll-fade stagger-2">
             <Image
-              src="/images/generated/StPatricksGarland.png"
+              src="/images/generated/LEDcenterpiece3.png"
               alt="LM Designs balloon artistry"
               fill
               className="object-cover"
