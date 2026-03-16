@@ -7,65 +7,67 @@ import { ArrowRight } from "lucide-react";
 import { Lightbox } from "@/components/ui/lightbox";
 import { useInView } from "@/hooks/use-in-view";
 
-const categories = ["All", "Arches & Backdrops", "Centerpieces"] as const;
-type Category = (typeof categories)[number];
-
-const images: { src: string; alt: string; category: Exclude<Category, "All"> }[] = [
+const media = [
   {
     src: "/images/generated/LedCenterpiece2.png",
     alt: "LED centerpiece design",
-    category: "Centerpieces",
+    title: "LED Centerpiece",
+    description: "A warm LED centerpiece designed to set the mood at any tablescape. Soft lighting meets sculpted balloon artistry.",
   },
   {
     src: "/images/generated/LEDcenterpiece3.png",
     alt: "LED centerpiece",
-    category: "Centerpieces",
+    title: "Glowing Arrangement",
+    description: "Custom LED-lit balloon arrangement perfect for intimate dinners, cocktail hours, and reception tables.",
   },
   {
     src: "/images/generated/LEDCenterpiece_Home.png",
     alt: "LED centerpiece event display",
-    category: "Centerpieces",
+    title: "Event Display",
+    description: "Full event centerpiece setup featuring coordinated LED balloon designs across multiple tables.",
   },
   {
     src: "/images/generated/ValentinesCenterpiece.png",
     alt: "Valentine's centerpiece",
-    category: "Centerpieces",
+    title: "Valentine\u2019s Centerpiece",
+    description: "Romantic balloon centerpiece in reds and pinks, designed for Valentine\u2019s Day celebrations and date nights.",
   },
   {
     src: "/images/generated/ValentinesPillar.png",
     alt: "Valentine's pillar display",
-    category: "Centerpieces",
+    title: "Valentine\u2019s Pillar",
+    description: "Elegant pillar arrangement with cascading balloon garlands in a Valentine\u2019s color palette.",
   },
   {
     src: "/images/generated/BirthdayPartyArch.png",
     alt: "Birthday party arch",
-    category: "Arches & Backdrops",
+    title: "Birthday Party Arch",
+    description: "Statement balloon arch framing the party space. Custom colors matched to the birthday theme.",
   },
   {
     src: "/images/generated/BalloonGarlandBackdrop.png",
     alt: "Balloon garland backdrop",
-    category: "Arches & Backdrops",
+    title: "Garland Backdrop",
+    description: "Full-wall balloon garland backdrop for photo ops, dessert tables, and stage areas.",
   },
   {
     src: "/images/generated/StPatricksGarland.png",
     alt: "St. Patrick's Day garland",
-    category: "Arches & Backdrops",
+    title: "St. Patrick\u2019s Day Garland",
+    description: "Festive green and gold balloon garland bringing seasonal spirit to any venue or storefront.",
   },
   {
     src: "/images/generated/StPatricksLobby.png",
     alt: "St. Patrick's Day lobby display",
-    category: "Arches & Backdrops",
+    title: "Lobby Installation",
+    description: "Grand lobby balloon installation designed for commercial spaces, welcoming guests with themed décor.",
   },
 ];
 
-export default function GalleryPage() {
-  const [active, setActive] = useState<Category>("All");
+export default function MediaPage() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const gridView = useInView();
+  const feedView = useInView();
   const ctaView = useInView();
-
-  const filtered =
-    active === "All" ? images : images.filter((img) => img.category === active);
 
   return (
     <>
@@ -73,77 +75,68 @@ export default function GalleryPage() {
       <section className="bg-cream py-12 md:py-20">
         <div className="max-w-6xl mx-auto px-6">
           <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
-            Our Portfolio
+            Our Work
           </p>
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal leading-tight">
-            Gallery
+            Media
           </h1>
+          <p className="text-charcoal-light mt-4 max-w-lg">
+            A look at our recent installations, custom designs, and event transformations.
+          </p>
         </div>
       </section>
 
-      {/* Filter + Grid */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Filter bar */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-5 py-2 text-xs tracking-widest uppercase transition-colors ${
-                  active === cat
-                    ? "bg-charcoal text-white"
-                    : "border border-rose text-charcoal-light hover:border-charcoal hover:text-charcoal"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Grid */}
-          <div
-            key={active}
-            ref={gridView.ref}
-            data-in-view={gridView.isInView}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
-          >
-            {filtered.map((img, i) => (
+      {/* Feed */}
+      <section className="py-12 md:py-20 bg-white">
+        <div
+          ref={feedView.ref}
+          data-in-view={feedView.isInView}
+          className="max-w-2xl mx-auto px-6 flex flex-col gap-10 md:gap-14"
+        >
+          {media.map((item, i) => (
+            <article
+              key={item.src}
+              className={`border border-rose transition-all duration-500 hover:glow-warm hover:-translate-y-1 group scroll-fade stagger-${Math.min(i + 1, 9)}`}
+            >
+              {/* Image */}
               <div
-                key={img.src}
-                className={`transition-all duration-500 hover:-translate-y-1.5 hover:glow-warm-hover group cursor-pointer scroll-fade stagger-${i + 1}`}
+                className="relative aspect-[4/3] overflow-hidden cursor-pointer"
                 onClick={() => setLightboxIndex(i)}
               >
-                <div className="relative aspect-square overflow-hidden">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/50 transition-all duration-300 flex items-end p-4">
-                    <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 w-full">
-                      <Link
-                        href={`/contact?style=${encodeURIComponent(img.alt)}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-white text-xs tracking-widest uppercase border-b border-white pb-0.5 hover:text-cream transition-colors"
-                      >
-                        Book This Style
-                        <ArrowRight size={12} />
-                      </Link>
-                    </div>
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/40 transition-all duration-300 flex items-end p-4 sm:p-6">
+                  <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                    <Link
+                      href={`/contact?style=${encodeURIComponent(item.alt)}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 text-white text-xs tracking-widest uppercase border-b border-white pb-0.5 hover:text-cream transition-colors"
+                    >
+                      Book This Style
+                      <ArrowRight size={12} />
+                    </Link>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Card Content */}
+              <div className="p-5 sm:p-6">
+                <h2 className="font-serif text-xl text-charcoal mb-2">{item.title}</h2>
+                <p className="text-sm text-charcoal-light leading-relaxed">{item.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <Lightbox
-          images={filtered}
+          images={media}
           currentIndex={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onNavigate={setLightboxIndex}

@@ -104,7 +104,7 @@ export default function HomePage() {
               href="/gallery"
               className="inline-flex items-center gap-2 border border-charcoal text-charcoal px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal hover:text-white transition-colors"
             >
-              See Full Gallery
+              See All Media
               <ArrowRight size={16} />
             </Link>
           </div>
