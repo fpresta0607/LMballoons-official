@@ -40,7 +40,7 @@ const jsonLd = {
     addressRegion: "IL",
     addressCountry: "US",
   },
-  sameAs: ["https://instagram.com/lmdesignsandco"],
+  sameAs: ["https://instagram.com/lmdesignsandco", "https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"],
   image: "https://lmdesignsandco.com/images/logo.png",
   priceRange: "$$",
 };

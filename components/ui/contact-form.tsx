@@ -78,6 +78,8 @@ export default function ContactForm() {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       eventDate: (form.elements.namedItem("eventDate") as HTMLInputElement).value,
+      eventStartTime: (form.elements.namedItem("eventStartTime") as HTMLInputElement).value,
+      eventEndTime: (form.elements.namedItem("eventEndTime") as HTMLInputElement).value,
       eventType: (form.elements.namedItem("eventType") as HTMLSelectElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
@@ -191,6 +193,30 @@ export default function ContactForm() {
         </div>
       </div>
 
+      {/* Event Start + End Time */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div>
+          <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
+            Event Start Time
+          </label>
+          <input
+            name="eventStartTime"
+            type="time"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
+            Event End Time
+          </label>
+          <input
+            name="eventEndTime"
+            type="time"
+            className={inputClass}
+          />
+        </div>
+      </div>
+
       {/* Event Type */}
       <div>
         <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
@@ -251,7 +277,7 @@ export default function ContactForm() {
       {status === "error" && !fieldErrors.name && (
         <div className="flex items-center gap-2 text-sm text-red-700 bg-red-50 border border-red-200 px-4 py-3">
           <AlertCircle size={16} />
-          Something went wrong. Please try again or DM us on Instagram.
+          Something went wrong. Please try again or reach us on Instagram or Facebook.
         </div>
       )}
     </form>

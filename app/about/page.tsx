@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Instagram } from "lucide-react";
+import { ArrowRight, Instagram, Facebook } from "lucide-react";
 import type { Metadata } from "next";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
@@ -67,6 +67,15 @@ export default function AboutPage() {
               >
                 @lmdesignsandco
               </a>{" "}
+              and{" "}
+              <a
+                href="https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-charcoal underline hover:text-charcoal-light transition-colors"
+              >
+                Facebook
+              </a>{" "}
               to see our work.
             </p>
           </div>
@@ -116,9 +125,9 @@ export default function AboutPage() {
           </h2>
           <p className="text-charcoal-light max-w-md mx-auto mb-8 scroll-fade stagger-3">
             See our latest creations, behind-the-scenes moments, and event
-            highlights on Instagram.
+            highlights on Instagram and Facebook.
           </p>
-          <div className="scroll-fade stagger-4">
+          <div className="flex flex-wrap justify-center gap-4 scroll-fade stagger-4">
             <a
               href="https://www.instagram.com/lmdesignsandco/"
               target="_blank"
@@ -127,6 +136,15 @@ export default function AboutPage() {
             >
               <Instagram size={16} />
               @lmdesignsandco
+            </a>
+            <a
+              href="https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
+            >
+              <Facebook size={16} />
+              Facebook
             </a>
           </div>
         </ScrollReveal>

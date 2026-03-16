@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram } from "lucide-react";
+import { Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -41,15 +41,26 @@ export default function Footer() {
         {/* Social */}
         <div>
           <p className="text-xs tracking-[0.2em] uppercase text-charcoal-light mb-4">Follow Along</p>
-          <a
-            href="https://www.instagram.com/lmdesignsandco/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-charcoal-light hover:text-charcoal transition-colors"
-          >
-            <Instagram size={16} />
-            @lmdesignsandco
-          </a>
+          <div className="space-y-3">
+            <a
+              href="https://www.instagram.com/lmdesignsandco/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-charcoal-light hover:text-charcoal transition-colors"
+            >
+              <Instagram size={16} />
+              @lmdesignsandco
+            </a>
+            <a
+              href="https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-charcoal-light hover:text-charcoal transition-colors"
+            >
+              <Facebook size={16} />
+              LM Designs & Balloons Co.
+            </a>
+          </div>
           <p className="mt-4 text-sm text-charcoal-light">
             For inquiries, fill out our{" "}
             <Link href="/contact" className="underline hover:text-charcoal transition-colors">

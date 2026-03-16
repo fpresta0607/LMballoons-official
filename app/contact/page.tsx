@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Instagram, Mail, MapPin } from "lucide-react";
+import { Instagram, Facebook, Mail, MapPin } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form";
 import type { Metadata } from "next";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -72,6 +72,22 @@ export default function ContactPage() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
+                  <Facebook size={18} className="text-charcoal-light mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-xs tracking-widest uppercase text-charcoal-light mb-1">
+                      Facebook
+                    </p>
+                    <a
+                      href="https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-charcoal hover:text-charcoal-light transition-colors underline"
+                    >
+                      LM Designs & Balloons Co.
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
                   <Mail size={18} className="text-charcoal-light mt-0.5 shrink-0" />
                   <div>
                     <p className="text-xs tracking-widest uppercase text-charcoal-light mb-1">
@@ -104,8 +120,10 @@ export default function ContactPage() {
                 Booking Tips
               </p>
               <ul className="text-sm text-charcoal-light space-y-2 leading-relaxed">
-                <li>• Book 3 to 4 weeks in advance</li>
-                <li>• Include your venue address if known</li>
+                <li>• Book 2&ndash;3 weeks ahead</li>
+                <li>• Include your venue address</li>
+                <li>• Share your event start and end times</li>
+                <li>• Tell us your colors, theme, or any inspo</li>
               </ul>
             </div>
           </div>
