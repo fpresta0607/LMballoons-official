@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Instagram, Mail, MapPin } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form";
 import type { Metadata } from "next";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Contact | LM Designs & Balloons Co.",
@@ -13,22 +14,22 @@ export default function ContactPage() {
   return (
     <>
       {/* Page Header */}
-      <section className="bg-cream py-20">
+      <section className="bg-cream py-12 md:py-20">
         <div className="max-w-6xl mx-auto px-6">
           <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
             Get in Touch
           </p>
-          <h1 className="font-serif text-5xl md:text-6xl text-charcoal leading-tight max-w-lg">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal leading-tight max-w-lg">
             Let&apos;s Plan Your Perfect Event
           </h1>
         </div>
       </section>
 
       {/* Form + Info */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-16">
+      <section className="py-12 md:py-20 bg-white">
+        <ScrollReveal className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16">
           {/* Form */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 scroll-fade">
             <Suspense>
               <ContactForm />
             </Suspense>
@@ -48,7 +49,7 @@ export default function ContactPage() {
           </div>
 
           {/* Info sidebar */}
-          <div className="space-y-8">
+          <div className="space-y-8 scroll-fade stagger-2">
             <div>
               <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-5">
                 Contact Info
@@ -108,7 +109,7 @@ export default function ContactPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </>
   );
