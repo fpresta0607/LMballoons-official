@@ -141,7 +141,7 @@ function VideoCard({
 
   return (
     <div
-      className={`relative aspect-[9/16] w-[260px] md:w-[320px] rounded-2xl overflow-hidden cursor-pointer group flex-shrink-0 snap-center transition-all duration-500 hover:glow-warm-hover ${staggerOffsets[index % 3]}`}
+      className="relative aspect-[9/16] w-[260px] md:w-[320px] rounded-2xl overflow-hidden cursor-pointer group flex-shrink-0 snap-center transition-all duration-500 hover:glow-warm-hover"
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -496,7 +496,7 @@ export default function MediaPage() {
                   See our installations come to life — from setup to the final reveal.
                 </p>
               </div>
-              <div className="hidden md:flex items-start justify-center gap-8 py-8">
+              <div className="hidden md:flex items-center justify-center gap-8 py-8">
                 {videoItems.map((item, i) => (
                   <VideoCard
                     key={item.src}
