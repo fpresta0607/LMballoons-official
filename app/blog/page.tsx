@@ -8,16 +8,25 @@ export default function BlogPage() {
 
   return (
     <>
-      {/* Header */}
-      <section className="bg-cream py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
+      {/* Hero Header with Background */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <Image
+          src="/images/blog/blog-section-hero.png"
+          alt="Luxury balloon installation in a grand venue"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-charcoal/60" />
+        <div className="relative max-w-6xl mx-auto px-6 text-center">
+          <p className="text-xs tracking-[0.3em] uppercase text-white/70 mb-3">
             Tips &amp; Guides
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-tight">
             Blog
           </h1>
-          <p className="text-charcoal-light mt-4 max-w-lg">
+          <p className="text-white/80 mt-4 max-w-lg mx-auto">
             Planning tips, color guides, and ideas to help you create
             unforgettable balloon decor for your next event.
           </p>
