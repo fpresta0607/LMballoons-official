@@ -12,7 +12,7 @@ export default function Footer() {
             Designs &amp; Balloons Co.
           </p>
           <p className="text-sm text-charcoal-light leading-relaxed">
-            Bringing your celebrations to life with bespoke balloon artistry.
+            Bringing your celebrations to life with handcrafted balloon artistry.
           </p>
         </div>
 

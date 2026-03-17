@@ -56,7 +56,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { name, email, phone, eventDate, eventStartTime, eventEndTime, eventType, message } =
+    const { name, email, phone, eventDate, eventStartTime, eventEndTime, eventType, venueAddress, message } =
       await req.json();
 
     // Server-side validation
@@ -87,6 +87,7 @@ export async function POST(req: Request) {
     const safeEventStartTime = escapeHtml(eventStartTime || "");
     const safeEventEndTime = escapeHtml(eventEndTime || "");
     const safeEventType = escapeHtml(eventType || "");
+    const safeVenueAddress = escapeHtml(venueAddress || "");
     const safeMessage = escapeHtml(message);
 
     const html = `
@@ -103,6 +104,7 @@ export async function POST(req: Request) {
           <tr><td style="padding: 8px 0; color: #6B5B59;">Start Time</td><td style="padding: 8px 0;">${formatTime(safeEventStartTime)}</td></tr>
           <tr><td style="padding: 8px 0; color: #6B5B59;">End Time</td><td style="padding: 8px 0;">${formatTime(safeEventEndTime)}</td></tr>
           <tr><td style="padding: 8px 0; color: #6B5B59;">Event Type</td><td style="padding: 8px 0;">${safeEventType || "—"}</td></tr>
+          <tr><td style="padding: 8px 0; color: #6B5B59;">Venue</td><td style="padding: 8px 0;">${safeVenueAddress || "—"}</td></tr>
         </table>
 
         <hr style="border: none; border-top: 1px solid #E8D5CC; margin: 24px 0;" />

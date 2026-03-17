@@ -197,10 +197,7 @@ export default function MediaPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-300" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
-                    <h2 className="font-serif text-sm sm:text-base md:text-lg text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] transition-transform duration-300 group-hover:-translate-y-1">
-                      {item.title}
-                    </h2>
-                    <div className="translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 mt-2">
+                    <div className="translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                       <Link
                         href={`/contact?style=${encodeURIComponent(item.alt)}`}
                         onClick={(e) => e.stopPropagation()}
@@ -238,11 +235,6 @@ export default function MediaPage() {
                     <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
                       <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1" />
                     </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h2 className="font-serif text-base text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
-                      {item.title}
-                    </h2>
                   </div>
                 </div>
               ))}

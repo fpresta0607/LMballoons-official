@@ -10,12 +10,12 @@ const services = [
   {
     icon: <Sparkles size={28} />,
     title: "Custom Balloon Designs",
-    desc: "Arches, garlands, centerpieces, columns, and more, built from scratch around your colors, theme, and vision.",
+    desc: "Garlands, centerpieces, columns, custom backdrops, and more, built from scratch around your colors, theme, and vision.",
   },
   {
     icon: <Star size={28} />,
     title: "Event Decor and Setup",
-    desc: "Full-service styling for birthdays, baby showers, milestone celebrations, and everything in between. We handle delivery, setup, and breakdown.",
+    desc: "Full-service styling for birthdays, showers, milestone celebrations, and everything in between. We handle delivery, setup, and breakdown.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function HomePage() {
             <h2 className="font-serif text-4xl text-charcoal">Every Balloon. Every Event.</h2>
           </div>
           <p className="text-center text-charcoal-light max-w-xl mx-auto mb-8 md:mb-14 scroll-fade stagger-2">
-            Custom designs, full event styling, setup and delivery. If it involves balloons, we do it.
+            Custom balloon displays, setup, and delivery — designed to make your event unforgettable.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {services.map((s, i) => (

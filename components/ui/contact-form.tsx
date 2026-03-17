@@ -5,11 +5,13 @@ import { useSearchParams } from "next/navigation";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 
 const eventTypes = [
-  "Birthday Party",
-  "Baby Shower",
-  "Bridal Shower",
-  "Graduation",
   "Anniversary",
+  "Baby Shower",
+  "Birthday Party",
+  "Bridal Shower",
+  "Corporate Event",
+  "Graduation",
+  "Wedding",
   "Other",
 ];
 
@@ -18,6 +20,7 @@ type Status = "idle" | "loading" | "success" | "error";
 interface FieldErrors {
   name?: string;
   email?: string;
+  phone?: string;
   message?: string;
   eventDate?: string;
 }
@@ -25,6 +28,7 @@ interface FieldErrors {
 function validate(data: {
   name: string;
   email: string;
+  phone: string;
   message: string;
   eventDate: string;
 }): FieldErrors {
@@ -38,11 +42,17 @@ function validate(data: {
     errors.email = "Please enter a valid email";
   }
 
+  if (!data.phone || data.phone.trim().length < 7) {
+    errors.phone = "Please enter a valid phone number";
+  }
+
   if (!data.message || data.message.trim().length < 10) {
     errors.message = "Please tell us a bit more (10+ characters)";
   }
 
-  if (data.eventDate) {
+  if (!data.eventDate) {
+    errors.eventDate = "Please select an event date";
+  } else {
     const eventDate = new Date(data.eventDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -81,6 +91,7 @@ export default function ContactForm() {
       eventStartTime: (form.elements.namedItem("eventStartTime") as HTMLInputElement).value,
       eventEndTime: (form.elements.namedItem("eventEndTime") as HTMLInputElement).value,
       eventType: (form.elements.namedItem("eventType") as HTMLSelectElement).value,
+      venueAddress: (form.elements.namedItem("venueAddress") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
@@ -168,22 +179,28 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
-            Phone
+            Phone *
           </label>
           <input
             name="phone"
             type="tel"
+            required
             placeholder="(555) 000-0000"
             className={inputClass}
+            onChange={() => clearFieldError("phone")}
           />
+          {fieldErrors.phone && (
+            <p className="text-red-600 text-xs mt-1">{fieldErrors.phone}</p>
+          )}
         </div>
         <div>
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
-            Event Date
+            Event Date *
           </label>
           <input
             name="eventDate"
             type="date"
+            required
             className={inputClass}
             onChange={() => clearFieldError("eventDate")}
           />
@@ -191,6 +208,19 @@ export default function ContactForm() {
             <p className="text-red-600 text-xs mt-1">{fieldErrors.eventDate}</p>
           )}
         </div>
+      </div>
+
+      {/* Venue Address */}
+      <div>
+        <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
+          Venue Location / Address
+        </label>
+        <input
+          name="venueAddress"
+          type="text"
+          placeholder="Event venue address (optional)"
+          className={inputClass}
+        />
       </div>
 
       {/* Event Start + End Time */}

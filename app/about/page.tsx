@@ -7,7 +7,7 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 export const metadata: Metadata = {
   title: "About | LM Designs & Balloons Co.",
   description:
-    "Learn about LM Designs & Balloons Co., our story, values, and passion for bespoke balloon artistry.",
+    "Learn about LM Designs & Balloons Co., our story, values, and passion for handcrafted balloon artistry.",
 };
 
 const pillars = [

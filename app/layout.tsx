@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "Custom balloon design for birthdays, parties, and every celebration. Based in Chicagoland, IL. Follow us @lmdesignsandco.",
   openGraph: {
     title: "LM Designs & Balloons Co.",
-    description: "Bringing your celebrations to life with bespoke balloon artistry.",
+    description: "Bringing your celebrations to life with handcrafted balloon artistry.",
     type: "website",
   },
 };

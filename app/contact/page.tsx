@@ -120,7 +120,7 @@ export default function ContactPage() {
                 Booking Tips
               </p>
               <ul className="text-sm text-charcoal-light space-y-2 leading-relaxed">
-                <li>• Book 2&ndash;3 weeks ahead</li>
+                <li>• Book at least 2&ndash;3 weeks ahead</li>
                 <li>• Include your venue address</li>
                 <li>• Share your event start and end times</li>
                 <li>• Tell us your colors, theme, or any inspo</li>
