@@ -22,7 +22,8 @@
       "mcp__nanobanana-mcp__gemini_edit_image",
       "Bash(npx sharp-cli:*)",
       "Bash(do wc:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "mcp__nanobanana-mcp__gemini_generate_image"
     ]
   }
 }
