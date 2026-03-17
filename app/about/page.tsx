@@ -42,22 +42,14 @@ const pillars = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Header with Image */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
-        <Image
-          src="/images/blog/blog-section-hero.png"
-          alt="Grand balloon ceiling installation"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-        <div className="absolute inset-0 bg-charcoal/55" />
+      {/* Hero Header */}
+      <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-rose via-cream to-rose">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(61,50,48,0.06),_transparent_60%)]" />
         <div className="relative max-w-6xl mx-auto px-6">
-          <p className="text-xs tracking-[0.3em] uppercase text-white/70 mb-3">
+          <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
             Our Story
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white max-w-xl leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal max-w-xl leading-tight">
             Made with Passion &amp; Precision
           </h1>
         </div>
