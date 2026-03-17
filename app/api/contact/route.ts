@@ -118,7 +118,7 @@ export async function POST(req: Request) {
     `;
 
     const { error } = await getResend().emails.send({
-      from: "LM Balloons Website <onboarding@resend.dev>",
+      from: "LM Balloons Website <hello@info.lmballoons.com>",
       to: ["lm.designs.balloons.co@gmail.com"],
       replyTo: email,
       subject: `New inquiry from ${safeName} - ${safeEventType || "Event"}`,
@@ -145,7 +145,7 @@ export async function POST(req: Request) {
     `;
 
     await getResend().emails.send({
-      from: "LM Designs & Balloons Co. <onboarding@resend.dev>",
+      from: "LM Designs & Balloons Co. <noreply@info.lmballoons.com>",
       to: [email],
       subject: "We received your inquiry!",
       html: confirmationHtml,
