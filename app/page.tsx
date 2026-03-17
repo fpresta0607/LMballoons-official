@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { Hero } from "@/components/ui/hero";
 import { useInView } from "@/hooks/use-in-view";
+import { Testimonials } from "@/components/ui/testimonials";
 
 const services = [
   {
@@ -20,27 +21,84 @@ const services = [
 ];
 
 const featuredImages = [
-  { src: "/images/generated/BalloonGarlandBackdrop.png", alt: "Balloon garland backdrop" },
-  { src: "/images/generated/BirthdayPartyArch.png", alt: "Birthday party arch" },
-  { src: "/images/generated/LEDcenterpiece3.png", alt: "LED centerpiece display" },
-  { src: "/images/generated/LedCenterpiece2.png", alt: "LED centerpiece design" },
-  { src: "/images/generated/ValentinesCenterpiece.png", alt: "Valentine's centerpiece" },
-  { src: "/images/generated/ValentinesPillar.png", alt: "Valentine's pillar display" },
+  { src: "/images/generated/BalloonGarlandBackdrop.png", alt: "Custom balloon garland backdrop for events in Chicagoland" },
+  { src: "/images/generated/BirthdayPartyArch.png", alt: "Birthday party balloon arch by LM Designs" },
+  { src: "/images/generated/LEDcenterpiece3.png", alt: "LED balloon centerpiece display" },
+  { src: "/images/generated/LedCenterpiece2.png", alt: "Glowing LED balloon centerpiece design" },
+  { src: "/images/generated/ValentinesCenterpiece.png", alt: "Valentine's Day balloon centerpiece" },
+  { src: "/images/generated/ValentinesPillar.png", alt: "Valentine's balloon pillar display" },
 ];
+
+const faqs = [
+  {
+    question: "What areas do you serve?",
+    answer:
+      "We serve Chicago\u2019s western suburbs including Schaumburg, Elmhurst, Itasca, Naperville, Oak Brook, Addison, Lombard, Villa Park, Glen Ellyn, Wheaton, and surrounding Chicagoland areas.",
+  },
+  {
+    question: "How far in advance should I book?",
+    answer:
+      "We recommend booking 2\u20133 weeks in advance to ensure availability, especially during peak event seasons. For larger installations, earlier booking is recommended.",
+  },
+  {
+    question: "What types of events do you decorate for?",
+    answer:
+      "We decorate for birthdays, weddings, baby showers, bridal showers, corporate events, graduations, anniversaries, grand openings, and any celebration that calls for something special.",
+  },
+  {
+    question: "How much do balloon decorations cost?",
+    answer:
+      "Pricing depends on the scope of your event, the type of installation, and design complexity. Contact us with your event details for a personalized quote.",
+  },
+  {
+    question: "Do you offer LED balloon displays?",
+    answer:
+      "Yes! LED balloon centerpieces and displays are one of our specialties. They add a stunning glow to any event and are perfect for evening celebrations.",
+  },
+  {
+    question: "How do I book LM Designs & Balloons Co.?",
+    answer:
+      "Simply fill out our contact form with your event details, and we\u2019ll get back to you within 24\u201348 hours to discuss your vision and provide a quote.",
+  },
+  {
+    question: "Can I customize my balloon colors and design?",
+    answer:
+      "Absolutely! Every installation is fully custom. We work with you to match your colors, theme, and overall vision for a one-of-a-kind design.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.answer,
+    },
+  })),
+};
 
 export default function HomePage() {
   const servicesView = useInView();
   const galleryView = useInView();
   const aboutView = useInView();
+  const faqView = useInView();
   const ctaView = useInView();
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       <Hero
         imageSrc="/images/generated/LEDCenterpiece_Home.png"
         imageAlt="Elegant LED balloon centerpieces at a dinner table"
         title="Balloons & Event Decor"
-        tagline="Custom Balloon Artistry for Every Celebration"
+        tagline="Boutique Custom Balloon Decorating in Chicagoland"
       />
 
       {/* Services */}
@@ -132,15 +190,16 @@ export default function HomePage() {
               Meet Lindsey &amp; Marina
             </h2>
             <p className="text-charcoal-light leading-relaxed mb-4">
-              Hi, we&apos;re Lindsey and Marina! What started as a shared
-              passion for beautiful events grew into a business we genuinely
-              love showing up for. We care a lot about the details, and even
-              more about the people behind each celebration.
+              LM Designs &amp; Balloons Co. is a boutique balloon decorating
+              service in Chicagoland, serving Schaumburg, Elmhurst, Itasca,
+              Naperville, and the western suburbs. Lindsey and Marina specialize
+              in custom balloon garlands, arches, centerpieces, LED displays,
+              and full event styling.
             </p>
             <p className="text-charcoal-light leading-relaxed mb-8">
-              No two events are the same, and we wouldn&apos;t have it any
-              other way. Whether it&apos;s a birthday, a brand launch, or any
-              moment worth marking, we&apos;d love to be part of it.
+              Whether it&apos;s a birthday, baby shower, wedding, corporate
+              event, or any milestone worth celebrating, we bring your vision to
+              life with precision, creativity, and a personal touch.
             </p>
             <Link
               href="/about"
@@ -149,6 +208,32 @@ export default function HomePage() {
               Learn More
               <ArrowRight size={14} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* FAQ */}
+      <section className="py-12 md:py-20 bg-white">
+        <div ref={faqView.ref} data-in-view={faqView.isInView} className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8 md:mb-14 scroll-fade">
+            <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
+              Common Questions
+            </p>
+            <h2 className="font-serif text-4xl text-charcoal">Frequently Asked Questions</h2>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-6">
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                className={`p-6 border border-rose scroll-fade stagger-${Math.min(i + 1, 9)}`}
+              >
+                <h3 className="font-serif text-lg text-charcoal mb-2">{faq.question}</h3>
+                <p className="text-sm text-charcoal-light leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

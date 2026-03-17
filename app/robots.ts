@@ -1,6 +1,6 @@
 export default function robots() {
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://lmdesignsandco.com/sitemap.xml",
+    sitemap: "https://www.lmballoons.com/sitemap.xml",
   };
 }

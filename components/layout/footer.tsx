@@ -1,19 +1,29 @@
 import Link from "next/link";
-import { Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-cream border-t border-rose">
       <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
-        {/* Brand */}
+        {/* Brand + NAP */}
         <div>
           <p className="font-serif text-2xl tracking-widest uppercase mb-2 text-charcoal">LM</p>
           <p className="text-xs tracking-[0.25em] uppercase text-charcoal-light mb-4">
             Designs &amp; Balloons Co.
           </p>
-          <p className="text-sm text-charcoal-light leading-relaxed">
+          <p className="text-sm text-charcoal-light leading-relaxed mb-3">
             Bringing your celebrations to life with handcrafted balloon artistry.
           </p>
+          <p className="text-xs text-charcoal-light leading-relaxed">
+            Serving Schaumburg, Elmhurst, Itasca, Naperville &amp; Chicagoland
+          </p>
+          <a
+            href="mailto:LM.Designs.Balloons.Co@gmail.com"
+            className="inline-flex items-center gap-1.5 text-xs text-charcoal-light hover:text-charcoal transition-colors mt-2"
+          >
+            <Mail size={12} />
+            LM.Designs.Balloons.Co@gmail.com
+          </a>
         </div>
 
         {/* Navigation */}
@@ -23,6 +33,7 @@ export default function Footer() {
             {[
               { href: "/", label: "Home" },
               { href: "/media", label: "Media" },
+              { href: "/blog", label: "Blog" },
               { href: "/about", label: "About" },
               { href: "/contact", label: "Contact" },
             ].map((l) => (

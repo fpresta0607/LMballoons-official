@@ -5,9 +5,20 @@ import type { Metadata } from "next";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const metadata: Metadata = {
-  title: "About | LM Designs & Balloons Co.",
+  title: "About Lindsey & Marina",
   description:
-    "Learn about LM Designs & Balloons Co., our story, values, and passion for handcrafted balloon artistry.",
+    "Meet Lindsey and Marina, founders of LM Designs & Balloons Co. Boutique balloon decorating and event styling in Schaumburg, Elmhurst, Naperville, and Chicagoland.",
+  openGraph: {
+    title: "About Lindsey & Marina | LM Designs & Balloons Co.",
+    description:
+      "Meet the founders of LM Designs & Balloons Co. Boutique balloon decorating and event styling in Chicagoland.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Lindsey & Marina | LM Designs & Balloons Co.",
+    description:
+      "Meet the founders of LM Designs & Balloons Co. Boutique balloon decorating and event styling in Chicagoland.",
+  },
 };
 
 const pillars = [
@@ -48,14 +59,18 @@ export default function AboutPage() {
         <ScrollReveal className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           <div className="scroll-fade">
             <p className="text-charcoal-light leading-relaxed mb-5">
-              LM Designs &amp; Balloons Co. transforms spaces through custom
-              balloon installations crafted for celebrations, brand moments,
-              and environments that demand something extraordinary.
+              LM Designs &amp; Balloons Co. is a custom balloon decorating and
+              event styling service founded by Lindsey and Marina in
+              Chicago&apos;s western suburbs. We serve Schaumburg, Elmhurst,
+              Itasca, Naperville, Oak Brook, and surrounding Chicagoland
+              communities, specializing in balloon garlands, arches, LED
+              centerpieces, backdrops, and full event decor.
             </p>
             <p className="text-charcoal-light leading-relaxed mb-5">
-              Every installation starts with you. We collaborate closely with
-              each client to bring a vision to life that feels intentional,
-              elevated, and completely one of a kind.
+              Every installation starts with your vision. We collaborate closely
+              to create balloon designs for birthdays, weddings, baby showers,
+              corporate events, graduations, and every celebration worth
+              remembering.
             </p>
             <p className="text-charcoal-light leading-relaxed">
               Follow along on Instagram{" "}

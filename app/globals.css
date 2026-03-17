@@ -101,6 +101,13 @@ h1, h2, h3, h4, h5 {
   .glow-warm-hover {
     box-shadow: 0 8px 30px var(--glow-warm-strong), 0 0 60px var(--glow-warm);
   }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Accessibility — reduced motion */
