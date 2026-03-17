@@ -98,20 +98,26 @@ const mediaItems: MediaItem[] = [
 const photoItems = mediaItems.filter((item) => item.type !== "video");
 const videoItems = mediaItems.filter((item) => item.type === "video");
 
-const bentoPattern = [
-  "col-span-2 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-2 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-1",
-  "col-span-1 row-span-2",
-  "col-span-1 row-span-1",
+// Desktop (3-col): mixed spans for visual interest
+const desktopBento = [
+  "md:col-span-2 md:row-span-2",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-2",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-1 md:row-span-2",
+  "md:col-span-1 md:row-span-1",
 ];
+
+// Mobile (2-col): uniform 1x1 grid — no gaps, perfect rectangle
+// Every 5th item spans full width for variety
+const mobileBento = (i: number) =>
+  i % 5 === 0 ? "col-span-2 md:col-span-1" : "col-span-1";
 
 const staggerOffsets = ["mt-8", "mt-0", "mt-12"];
 
@@ -450,11 +456,11 @@ export default function MediaPage() {
         <div className="max-w-6xl mx-auto px-6">
           {/* Photos */}
           {activeTab === "photos" && (
-            <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[200px] sm:auto-rows-[240px] md:auto-rows-[280px] gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[200px] sm:auto-rows-[240px] md:auto-rows-[280px] gap-2 sm:gap-3 md:grid-flow-dense">
               {photoItems.map((item, i) => (
                 <div
                   key={item.src}
-                  className={`relative overflow-hidden cursor-pointer group ${bentoPattern[i % bentoPattern.length]} transition-all duration-500 hover:glow-warm-hover hover:z-10`}
+                  className={`relative overflow-hidden cursor-pointer group ${mobileBento(i)} ${desktopBento[i % desktopBento.length]} transition-all duration-500 hover:glow-warm-hover hover:z-10`}
                   onClick={() => setLightboxIndex(i)}
                 >
                   <Image
