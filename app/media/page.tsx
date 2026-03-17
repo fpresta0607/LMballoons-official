@@ -411,30 +411,39 @@ export default function MediaPage() {
 
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-cream py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
+      {/* Page Header with Hero Image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <Image
+          src="/images/blog/media-hero.png"
+          alt="Balloon garland arch framing a dessert table"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-charcoal/55" />
+        <div className="relative max-w-6xl mx-auto px-6">
+          <p className="text-xs tracking-[0.3em] uppercase text-white/70 mb-3">
             Our Recent Work
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-tight">
             Media
           </h1>
-          <p className="text-charcoal-light mt-4 max-w-lg">
+          <p className="text-white/80 mt-4 max-w-lg">
             A look at our recent installations, custom designs, and event
             transformations.
           </p>
 
           {/* Tabs */}
-          <div className="flex gap-8 mt-8 border-b border-rose">
+          <div className="flex gap-8 mt-8 border-b border-white/20">
             {(["photos", "videos"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`pb-3 text-xs tracking-[0.25em] uppercase transition-colors ${
                   activeTab === tab
-                    ? "text-charcoal border-b-2 border-charcoal -mb-px"
-                    : "text-charcoal-light hover:text-charcoal"
+                    ? "text-white border-b-2 border-white -mb-px"
+                    : "text-white/60 hover:text-white"
                 }`}
               >
                 {tab}

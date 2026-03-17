@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Image from "next/image";
 import { Instagram, Facebook, Mail, MapPin } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form";
 import type { Metadata } from "next";
@@ -24,13 +25,22 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-cream py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
+      {/* Page Header with Hero Image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <Image
+          src="/images/blog/contact-hero.png"
+          alt="Balloon centerpiece with planning materials on a consultation table"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-charcoal/55" />
+        <div className="relative max-w-6xl mx-auto px-6">
+          <p className="text-xs tracking-[0.3em] uppercase text-white/70 mb-3">
             Get in Touch
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal leading-tight max-w-lg">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-tight max-w-lg">
             Let&apos;s Plan Your Perfect Event
           </h1>
         </div>
