@@ -5,9 +5,20 @@ import type { Metadata } from "next";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const metadata: Metadata = {
-  title: "Contact | LM Designs & Balloons Co.",
+  title: "Book Your Balloon Decor | Chicagoland",
   description:
-    "Book LM Designs & Balloons Co. for your next event. Fill out our inquiry form and we'll get back to you shortly.",
+    "Book LM Designs & Balloons Co. for custom balloon garlands, arches, LED centerpieces, and event styling in Schaumburg, Elmhurst, Naperville, and Chicagoland.",
+  openGraph: {
+    title: "Book Your Balloon Decor | LM Designs & Balloons Co.",
+    description:
+      "Book custom balloon decorations for your next event. Serving Schaumburg, Elmhurst, Naperville, and Chicago's western suburbs.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Book Your Balloon Decor | LM Designs & Balloons Co.",
+    description:
+      "Book custom balloon decorations for your next event. Serving Chicagoland's western suburbs.",
+  },
 };
 
 export default function ContactPage() {

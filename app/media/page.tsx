@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { ArrowRight, X, Volume2, VolumeX, Play } from "lucide-react";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { Lightbox } from "@/components/ui/lightbox";
 
 type MediaItem = {
@@ -114,24 +113,162 @@ const bentoPattern = [
   "col-span-1 row-span-1",
 ];
 
-export default function MediaPage() {
-  const [activeTab, setActiveTab] = useState<"photos" | "videos">("photos");
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [videoIndex, setVideoIndex] = useState<number | null>(null);
+const staggerOffsets = ["mt-8", "mt-0", "mt-12"];
 
-  const goPrevVideo = useCallback(() => {
-    setVideoIndex((i) => (i !== null ? (i - 1 + videoItems.length) % videoItems.length : null));
-  }, []);
-  const goNextVideo = useCallback(() => {
-    setVideoIndex((i) => (i !== null ? (i + 1) % videoItems.length : null));
-  }, []);
+function VideoCard({
+  item,
+  index,
+  onClick,
+}: {
+  item: MediaItem;
+  index: number;
+  onClick: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    videoRef.current?.play().catch(() => {});
+  };
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  return (
+    <div
+      className={`relative aspect-[9/16] w-[180px] md:w-[220px] rounded-2xl overflow-hidden cursor-pointer group flex-shrink-0 snap-center transition-all duration-500 hover:glow-warm-hover ${staggerOffsets[index % 3]}`}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        src={item.src}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="w-full h-full object-cover"
+      />
+
+      {/* Bottom gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#3D3230]/60 via-transparent to-transparent" />
+
+      {/* Play indicator */}
+      <div
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+          isHovering ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center animate-pulse">
+          <Play size={22} className="text-white ml-1" fill="white" />
+        </div>
+      </div>
+
+      {/* Title + label */}
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <p className="text-white text-sm font-medium leading-tight">
+          {item.title}
+        </p>
+        <p className="text-white/60 text-[10px] tracking-widest uppercase mt-1">
+          Watch Reel
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MobileVideoCard({
+  item,
+  onClick,
+}: {
+  item: MediaItem;
+  onClick: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (videoIndex === null) return;
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoRef.current?.play().catch(() => {});
+        } else {
+          if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+          }
+        }
+      },
+      { threshold: 0.6 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className="relative aspect-[9/16] w-[75vw] max-w-[280px] rounded-2xl overflow-hidden cursor-pointer flex-shrink-0 snap-center"
+      onClick={onClick}
+    >
+      <video
+        ref={videoRef}
+        src={item.src}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#3D3230]/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+          <Play size={22} className="text-white ml-1" fill="white" />
+        </div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <p className="text-white text-sm font-medium leading-tight">
+          {item.title}
+        </p>
+        <p className="text-white/60 text-[10px] tracking-widest uppercase mt-1">
+          Watch Reel
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ReelsViewer({
+  initialIndex,
+  onClose,
+}: {
+  initialIndex: number;
+  onClose: () => void;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function goTo(index: number) {
+    if (index >= 0 && index < videoItems.length) {
+      setCurrentIndex(index);
+    }
+  }
+
+  useEffect(() => {
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setVideoIndex(null);
-      if (e.key === "ArrowLeft") goPrevVideo();
-      if (e.key === "ArrowRight") goNextVideo();
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowUp") setCurrentIndex((i) => Math.max(i - 1, 0));
+      if (e.key === "ArrowDown") setCurrentIndex((i) => Math.min(i + 1, videoItems.length - 1));
     }
     window.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
@@ -139,7 +276,138 @@ export default function MediaPage() {
       window.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
     };
-  }, [videoIndex, goPrevVideo, goNextVideo]);
+  }, [onClose]);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.y < -80) setCurrentIndex((i) => Math.min(i + 1, videoItems.length - 1));
+    else if (info.offset.y > 80) setCurrentIndex((i) => Math.max(i - 1, 0));
+  };
+
+  const currentVideo = videoItems[currentIndex];
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-black/95"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Backdrop click */}
+      <div className="absolute inset-0" onClick={onClose} />
+
+      {/* Close */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-[95] text-white/70 hover:text-white transition-colors"
+        aria-label="Close"
+      >
+        <X size={28} />
+      </button>
+
+      {/* Phone frame (desktop) / full viewport (mobile) */}
+      <div className="relative z-[92] w-screen h-[100dvh] md:w-auto md:max-w-[400px] md:h-[85vh] md:rounded-3xl overflow-hidden bg-black">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            className="w-full h-full"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.25 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0.3}
+            onDragEnd={handleDragEnd}
+          >
+            <video
+              ref={videoRef}
+              key={currentVideo.src}
+              src={currentVideo.src}
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Bottom overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none z-[93]">
+          <p className="text-white font-serif text-xl mb-2">
+            {currentVideo.title}
+          </p>
+          <Link
+            href={`/contact?style=${encodeURIComponent(currentVideo.alt)}`}
+            className="inline-flex items-center gap-1.5 text-white/90 text-xs tracking-widest uppercase border-b border-white/50 pb-0.5 hover:text-white transition-colors pointer-events-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Book This Style
+            <ArrowRight size={11} />
+          </Link>
+        </div>
+
+        {/* Mute toggle */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMuted(!isMuted);
+          }}
+          className="absolute top-6 right-6 z-[94] text-white/70 hover:text-white transition-colors"
+          aria-label={isMuted ? "Unmute" : "Mute"}
+        >
+          {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+        </button>
+
+        {/* Dot indicators (right side) */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-[94]">
+          {videoItems.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                goTo(i);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === currentIndex
+                  ? "bg-white scale-125"
+                  : "bg-white/40 hover:bg-white/60"
+              }`}
+              aria-label={`Go to video ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Mobile tap zones */}
+        <div
+          className="absolute left-0 top-0 w-full h-1/4 z-[93] md:hidden"
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentIndex((i) => Math.max(i - 1, 0));
+          }}
+        />
+        <div
+          className="absolute left-0 bottom-0 w-full h-1/4 z-[92] md:hidden"
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentIndex((i) => Math.min(i + 1, videoItems.length - 1));
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+export default function MediaPage() {
+  const [activeTab, setActiveTab] = useState<"photos" | "videos">("photos");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [reelsIndex, setReelsIndex] = useState<number | null>(null);
 
   return (
     <>
@@ -153,7 +421,8 @@ export default function MediaPage() {
             Media
           </h1>
           <p className="text-charcoal-light mt-4 max-w-lg">
-            A look at our recent installations, custom designs, and event transformations.
+            A look at our recent installations, custom designs, and event
+            transformations.
           </p>
 
           {/* Tabs */}
@@ -178,7 +447,6 @@ export default function MediaPage() {
       {/* Grid */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-
           {/* Photos */}
           {activeTab === "photos" && (
             <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[200px] sm:auto-rows-[240px] md:auto-rows-[280px] gap-2 sm:gap-3">
@@ -213,32 +481,31 @@ export default function MediaPage() {
             </div>
           )}
 
-          {/* Videos */}
+          {/* Videos — Desktop: staggered vertical cards */}
           {activeTab === "videos" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {videoItems.map((item) => (
-                <div
-                  key={item.src}
-                  className="relative overflow-hidden cursor-pointer group aspect-video bg-charcoal transition-all duration-500 hover:glow-warm-hover hover:z-10"
-                  onClick={() => setVideoIndex(videoItems.indexOf(item))}
-                >
-                  <video
-                    src={item.src}
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            <>
+              <div className="hidden md:flex items-end justify-center gap-6 py-8">
+                {videoItems.map((item, i) => (
+                  <VideoCard
+                    key={item.src}
+                    item={item}
+                    index={i}
+                    onClick={() => setReelsIndex(i)}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-                      <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1" />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+
+              {/* Videos — Mobile: horizontal snap-scroll carousel */}
+              <div className="md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-4 px-2">
+                {videoItems.map((item, i) => (
+                  <MobileVideoCard
+                    key={item.src}
+                    item={item}
+                    onClick={() => setReelsIndex(i)}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </section>
@@ -253,64 +520,13 @@ export default function MediaPage() {
         />
       )}
 
-      {/* Video Modal */}
+      {/* Reels Viewer */}
       <AnimatePresence>
-        {videoIndex !== null && (
-          <motion.div
-            className="fixed inset-0 z-[90] flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <div className="absolute inset-0 bg-black/90" onClick={() => setVideoIndex(null)} />
-
-            {/* Close */}
-            <button
-              onClick={() => setVideoIndex(null)}
-              className="absolute top-4 right-4 z-[92] text-white/70 hover:text-white transition-colors"
-              aria-label="Close video"
-            >
-              <X size={28} />
-            </button>
-
-            {/* Counter */}
-            <div className="absolute top-4 left-4 z-[92] text-white/70 text-sm tracking-widest">
-              {videoIndex + 1} / {videoItems.length}
-            </div>
-
-            {/* Prev / Next — desktop */}
-            <button
-              onClick={goPrevVideo}
-              className="absolute left-4 z-[92] text-white/50 hover:text-white transition-colors hidden md:block"
-              aria-label="Previous video"
-            >
-              <ChevronLeft size={40} />
-            </button>
-            <button
-              onClick={goNextVideo}
-              className="absolute right-4 z-[92] text-white/50 hover:text-white transition-colors hidden md:block"
-              aria-label="Next video"
-            >
-              <ChevronRight size={40} />
-            </button>
-
-            {/* Mobile tap zones */}
-            <div className="absolute left-0 top-0 w-1/4 h-full z-[91] md:hidden" onClick={goPrevVideo} />
-            <div className="absolute right-0 top-0 w-1/4 h-full z-[91] md:hidden" onClick={goNextVideo} />
-
-            <motion.video
-              key={videoItems[videoIndex].src}
-              src={videoItems[videoIndex].src}
-              autoPlay
-              muted
-              playsInline
-              className="relative z-[91] w-[90vw] max-w-5xl max-h-[80vh] outline-none"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            />
-          </motion.div>
+        {reelsIndex !== null && (
+          <ReelsViewer
+            initialIndex={reelsIndex}
+            onClose={() => setReelsIndex(null)}
+          />
         )}
       </AnimatePresence>
 
@@ -321,7 +537,8 @@ export default function MediaPage() {
             Love What You See?
           </h2>
           <p className="text-charcoal-light mb-8 max-w-md mx-auto">
-            Let&apos;s bring your vision to life. Contact us to discuss your event.
+            Let&apos;s bring your vision to life. Contact us to discuss your
+            event.
           </p>
           <Link
             href="/contact"

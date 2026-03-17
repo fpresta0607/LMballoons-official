@@ -113,7 +113,7 @@ export async function POST(req: Request) {
         <p style="font-size: 14px; line-height: 1.7; white-space: pre-wrap;">${safeMessage}</p>
 
         <hr style="border: none; border-top: 1px solid #E8D5CC; margin: 24px 0;" />
-        <p style="font-size: 12px; color: #6B5B59;">Sent via lmdesignsandco.com</p>
+        <p style="font-size: 12px; color: #6B5B59;">Sent via www.lmballoons.com</p>
       </div>
     `;
 
