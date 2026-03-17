@@ -135,13 +135,13 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full border border-rose bg-white px-4 py-3 text-sm text-charcoal placeholder-charcoal-light/60 focus:outline-none focus:border-charcoal transition-colors";
+    "w-full min-w-0 appearance-none border border-rose bg-white px-4 py-3 text-sm text-charcoal placeholder-charcoal-light/60 focus:outline-none focus:border-charcoal transition-colors";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-5 w-full overflow-x-hidden" noValidate>
       {/* Name + Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
             Name *
           </label>
@@ -157,7 +157,7 @@ export default function ContactForm() {
             <p className="text-red-600 text-xs mt-1">{fieldErrors.name}</p>
           )}
         </div>
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
             Email *
           </label>
@@ -177,7 +177,7 @@ export default function ContactForm() {
 
       {/* Phone + Event Date */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
             Phone *
           </label>
@@ -193,7 +193,7 @@ export default function ContactForm() {
             <p className="text-red-600 text-xs mt-1">{fieldErrors.phone}</p>
           )}
         </div>
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
             Event Date *
           </label>
@@ -225,7 +225,7 @@ export default function ContactForm() {
 
       {/* Event Start + End Time */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
             Event Start Time
           </label>
@@ -235,7 +235,7 @@ export default function ContactForm() {
             className={inputClass}
           />
         </div>
-        <div>
+        <div className="min-w-0">
           <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
             Event End Time
           </label>
