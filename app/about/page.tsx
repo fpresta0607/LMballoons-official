@@ -42,22 +42,37 @@ const pillars = [
 export default function AboutPage() {
   return (
     <>
-      {/* Page Header */}
-      <section className="bg-cream py-12 md:py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
+      {/* Hero Header with Image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <Image
+          src="/images/blog/blog-section-hero.png"
+          alt="Grand balloon ceiling installation"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-charcoal/55" />
+        <div className="relative max-w-6xl mx-auto px-6">
+          <p className="text-xs tracking-[0.3em] uppercase text-white/70 mb-3">
             Our Story
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-charcoal max-w-xl leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-white max-w-xl leading-tight">
             Made with Passion &amp; Precision
           </h1>
         </div>
       </section>
 
       {/* Story */}
-      <section className="py-12 md:py-20 bg-white">
-        <ScrollReveal className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-          <div className="scroll-fade">
+      <section className="py-16 md:py-24 bg-white">
+        <ScrollReveal className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div className="scroll-fade order-2 md:order-1">
+            <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-4">
+              Who We Are
+            </p>
+            <h2 className="font-serif text-3xl text-charcoal mb-6">
+              Custom Balloon Artistry for Every Celebration
+            </h2>
             <p className="text-charcoal-light leading-relaxed mb-5">
               LM Designs &amp; Balloons Co. is a custom balloon decorating and
               event styling service founded by Lindsey and Marina in
@@ -78,7 +93,7 @@ export default function AboutPage() {
                 href="https://www.instagram.com/lmdesignsandco/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-charcoal underline hover:text-charcoal-light transition-colors"
+                className="text-charcoal underline underline-offset-2 hover:text-charcoal-light transition-colors"
               >
                 @lmdesignsandco
               </a>{" "}
@@ -87,28 +102,75 @@ export default function AboutPage() {
                 href="https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-charcoal underline hover:text-charcoal-light transition-colors"
+                className="text-charcoal underline underline-offset-2 hover:text-charcoal-light transition-colors"
               >
                 Facebook
               </a>{" "}
               to see our work.
             </p>
           </div>
-          <div className="relative aspect-square overflow-hidden scroll-fade stagger-2">
-            <Image
-              src="/images/generated/LEDcenterpiece3.png"
-              alt="LM Designs balloon artistry"
-              fill
-              className="object-cover"
-            />
+          <div className="relative order-1 md:order-2 scroll-fade stagger-2">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+              <Image
+                src="/images/blog/about-founders.png"
+                alt="Lindsey and Marina assembling a balloon garland at an event venue"
+                fill
+                className="object-cover"
+              />
+            </div>
+            {/* Decorative accent frame */}
+            <div className="absolute -bottom-4 -left-4 w-2/3 h-2/3 rounded-2xl border-2 border-rose -z-10" />
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* Second image section — reversed layout */}
+      <section className="py-16 md:py-24 bg-cream">
+        <ScrollReveal className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div className="relative scroll-fade">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
+              <Image
+                src="/images/generated/BalloonGarlandBackdrop.png"
+                alt="Balloon garland backdrop at an event"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="absolute -top-4 -right-4 w-2/3 h-2/3 rounded-2xl border-2 border-rose -z-10" />
+          </div>
+          <div className="scroll-fade stagger-2">
+            <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-4">
+              Our Process
+            </p>
+            <h2 className="font-serif text-3xl text-charcoal mb-6">
+              From Your Vision to a Stunning Reality
+            </h2>
+            <p className="text-charcoal-light leading-relaxed mb-5">
+              It all starts with a conversation. Tell us about your event, your
+              vision, and the atmosphere you want to create. We&apos;ll guide
+              you through color selection, layout options, and design concepts
+              tailored to your space.
+            </p>
+            <p className="text-charcoal-light leading-relaxed mb-5">
+              On event day, we handle everything — delivery, installation, and
+              styling — so you can focus on your guests. Every garland curve,
+              every LED glow, every detail is placed with intention.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-charcoal border-b border-charcoal pb-1 hover:text-charcoal-light hover:border-charcoal-light transition-colors"
+            >
+              Start Planning
+              <ArrowRight size={12} />
+            </Link>
           </div>
         </ScrollReveal>
       </section>
 
       {/* Pillars */}
-      <section className="py-12 md:py-20 bg-cream">
+      <section className="py-16 md:py-24 bg-white">
         <ScrollReveal className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8 md:mb-14 scroll-fade">
+          <div className="text-center mb-10 md:mb-16 scroll-fade">
             <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3">
               What Sets Us Apart
             </p>
@@ -118,7 +180,7 @@ export default function AboutPage() {
             {pillars.map((p, i) => (
               <div
                 key={p.number}
-                className={`p-8 bg-white border border-rose transition-all duration-500 hover:glow-warm hover:-translate-y-1 scroll-fade stagger-${i + 2}`}
+                className={`p-8 bg-cream/50 rounded-2xl border border-rose transition-all duration-500 hover:glow-warm hover:-translate-y-1 scroll-fade stagger-${i + 2}`}
               >
                 <p className="font-serif text-4xl text-rose mb-4">{p.number}</p>
                 <h3 className="font-serif text-xl text-charcoal mb-3">{p.title}</h3>
@@ -130,7 +192,7 @@ export default function AboutPage() {
       </section>
 
       {/* Instagram CTA */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-16 md:py-24 bg-cream">
         <ScrollReveal className="max-w-6xl mx-auto px-6 text-center">
           <p className="text-xs tracking-[0.3em] uppercase text-charcoal-light mb-3 scroll-fade">
             Stay Inspired
@@ -147,7 +209,7 @@ export default function AboutPage() {
               href="https://www.instagram.com/lmdesignsandco/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
+              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 rounded-lg text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
             >
               <Instagram size={16} />
               @lmdesignsandco
@@ -156,7 +218,7 @@ export default function AboutPage() {
               href="https://www.facebook.com/people/LM-Designs-Balloons-Co/61586605825525/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
+              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 rounded-lg text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all"
             >
               <Facebook size={16} />
               Facebook
@@ -166,7 +228,7 @@ export default function AboutPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="bg-cream py-12 md:py-16">
+      <section className="bg-white py-16 md:py-20">
         <ScrollReveal className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="font-serif text-3xl text-charcoal mb-4 scroll-fade">
             Let&apos;s Create Something Beautiful Together
@@ -174,7 +236,7 @@ export default function AboutPage() {
           <div className="scroll-fade stagger-2">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all mt-4"
+              className="inline-flex items-center gap-2 bg-charcoal text-white px-8 py-4 rounded-lg text-sm tracking-widest uppercase hover:bg-charcoal-light hover:shadow-[0_4px_20px_rgba(232,190,160,0.4)] transition-all mt-4"
             >
               Get in Touch
               <ArrowRight size={16} />

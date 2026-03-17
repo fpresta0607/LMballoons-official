@@ -107,12 +107,16 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Content */}
           <div
             className="prose prose-lg max-w-none text-charcoal-light
-              prose-headings:font-serif prose-headings:text-charcoal prose-headings:mt-10 prose-headings:mb-4
-              prose-p:leading-relaxed prose-p:mb-5
-              prose-a:text-charcoal prose-a:underline hover:prose-a:text-charcoal-light
-              prose-ul:my-4 prose-li:text-charcoal-light
-              prose-ol:my-4
-              prose-strong:text-charcoal"
+              prose-headings:font-serif prose-headings:text-charcoal
+              prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-rose/50
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+              prose-p:leading-[1.85] prose-p:mb-6 prose-p:text-base prose-p:sm:text-lg
+              prose-a:text-charcoal prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-charcoal-light
+              prose-ul:my-6 prose-ul:space-y-2 prose-ul:pl-6
+              prose-ol:my-6 prose-ol:space-y-2 prose-ol:pl-6
+              prose-li:text-base prose-li:sm:text-lg prose-li:text-charcoal-light prose-li:leading-[1.8]
+              prose-strong:text-charcoal prose-strong:font-semibold
+              prose-em:text-charcoal-light"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

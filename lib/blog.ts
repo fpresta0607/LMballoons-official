@@ -15,8 +15,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-10",
     excerpt:
       "Picking the right balloon colors can make or break your decor. Here's how to match your palette to your venue, theme, and vibe.",
-    image: "/images/generated/BalloonGarlandBackdrop.png",
-    imageAlt: "Colorful balloon garland backdrop at an event",
+    image: "/images/blog/balloon-colors-hero.png",
+    imageAlt: "Elegant balloon color palette with blush, sage, gold, and ivory balloons on marble",
     content: `
 <p>Color is one of the most powerful tools in event decor. The right balloon palette ties everything together — the venue, the lighting, the mood — while the wrong colors can clash with your space or feel off-brand. Here's a practical guide to choosing balloon colors that work.</p>
 
@@ -57,8 +57,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-03",
     excerpt:
       "Timing is everything when it comes to event decor. Here's a realistic timeline for booking your balloon decorator and what to have ready.",
-    image: "/images/generated/BirthdayPartyArch.png",
-    imageAlt: "Birthday party balloon arch installation",
+    image: "/images/blog/booking-decorator-hero.png",
+    imageAlt: "Balloon decorator installing an elegant garland arch at a venue",
     content: `
 <p>One of the most common questions we get is "how far in advance should I book?" The answer depends on your event type, the time of year, and how custom you want to go. Here's a practical timeline to help you plan.</p>
 
@@ -106,8 +106,8 @@ export const blogPosts: BlogPost[] = [
     date: "2026-02-24",
     excerpt:
       "LED balloons add a magical glow to any event. Here's when they work best and how to use them for maximum impact.",
-    image: "/images/generated/LedCenterpiece2.png",
-    imageAlt: "LED balloon centerpiece glowing at an event",
+    image: "/images/blog/led-displays-hero.png",
+    imageAlt: "LED balloon centerpieces glowing warmly at an upscale evening event",
     content: `
 <p>LED balloon displays have become one of the most requested decor upgrades we offer. There's something about that warm, ambient glow that transforms a space instantly. Here are five ways to use LED balloons to take your event from nice to unforgettable.</p>
 
