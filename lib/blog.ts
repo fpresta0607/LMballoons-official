@@ -58,7 +58,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Timing is everything when it comes to event decor. Here's a realistic timeline for booking your balloon decorator and what to have ready.",
     image: "/images/blog/booking-decorator-hero.png",
-    imageAlt: "Balloon decorator installing an elegant garland arch at a venue",
+    imageAlt: "Balloon garland arch framing an elegant sweetheart table at a venue",
     content: `
 <p>One of the most common questions we get is "how far in advance should I book?" The answer depends on your event type, the time of year, and how custom you want to go. Here's a practical timeline to help you plan.</p>
 

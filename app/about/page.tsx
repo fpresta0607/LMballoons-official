@@ -112,8 +112,8 @@ export default function AboutPage() {
           <div className="relative order-1 md:order-2 scroll-fade stagger-2">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
               <Image
-                src="/images/blog/about-founders.png"
-                alt="Lindsey and Marina assembling a balloon garland at an event venue"
+                src="/images/generated/duo.jpeg"
+                alt="Lindsey and Marina, founders of LM Designs & Balloons Co."
                 fill
                 className="object-cover"
               />
