@@ -213,7 +213,7 @@ export default function ContactForm() {
       {/* Venue Address */}
       <div>
         <label className="block text-xs tracking-widest uppercase text-charcoal-light mb-2">
-          Venue Location / Address
+          Venue Address
         </label>
         <input
           name="venueAddress"
