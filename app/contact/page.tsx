@@ -108,7 +108,7 @@ export default function ContactPage() {
                       Serving Area
                     </p>
                     <p className="text-sm text-charcoal">
-                      Chicagoland and surrounding suburbs
+                      Chicagoland, IL
                     </p>
                   </div>
                 </li>
