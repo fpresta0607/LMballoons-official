@@ -20,7 +20,9 @@
       "mcp__nanobanana-mcp__set_model",
       "mcp__nanobanana-mcp__set_aspect_ratio",
       "mcp__nanobanana-mcp__gemini_edit_image",
-      "Bash(npx sharp-cli:*)"
+      "Bash(npx sharp-cli:*)",
+      "Bash(do wc:*)",
+      "Bash(done)"
     ]
   }
 }
