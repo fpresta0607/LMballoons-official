@@ -301,7 +301,7 @@ export default function ContactForm() {
       {status === "success" && (
         <div className="flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 px-4 py-3">
           <CheckCircle size={16} />
-          Thank you! We&apos;ll be in touch within 1–2 business days.
+          Thank you! We&apos;ll be in touch within 1 business day.
         </div>
       )}
       {status === "error" && !fieldErrors.name && (

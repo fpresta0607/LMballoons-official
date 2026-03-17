@@ -105,10 +105,10 @@ export default function ContactPage() {
                   <MapPin size={18} className="text-charcoal-light mt-0.5 shrink-0" />
                   <div>
                     <p className="text-xs tracking-widest uppercase text-charcoal-light mb-1">
-                      Location
+                      Serving Area
                     </p>
                     <p className="text-sm text-charcoal">
-                      Chicagoland, IL
+                      Chicagoland and surrounding suburbs
                     </p>
                   </div>
                 </li>

@@ -133,7 +133,7 @@ export async function POST(req: Request) {
     const confirmationHtml = `
       <div style="font-family: Georgia, serif; max-width: 600px; color: #3D3230;">
         <h2 style="font-size: 24px; margin-bottom: 8px;">Thanks for reaching out, ${safeName}!</h2>
-        <p style="color: #6B5B59; margin-bottom: 24px;">We received your inquiry and will get back to you within 1–2 business days.</p>
+        <p style="color: #6B5B59; margin-bottom: 24px;">We received your inquiry and will get back to you within 1 business day.</p>
         <hr style="border: none; border-top: 1px solid #E8D5CC; margin-bottom: 24px;" />
         <p style="font-size: 14px; color: #6B5B59; line-height: 1.7;">
           In the meantime, feel free to browse our latest work on Instagram
