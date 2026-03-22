@@ -76,6 +76,21 @@ const mediaItems: MediaItem[] = [
     title: "Cheetah Arrangement",
   },
   {
+    src: "/images/generated/BasketballDisplay1.jpg",
+    alt: "Basketball themed balloon display",
+    title: "Basketball Display",
+  },
+  {
+    src: "/images/generated/BasketballDisplay2.jpg",
+    alt: "Basketball themed balloon centerpiece",
+    title: "Basketball Centerpiece",
+  },
+  {
+    src: "/images/generated/BasketballDisplay3.jpg",
+    alt: "Basketball themed balloon columns",
+    title: "Basketball Columns",
+  },
+  {
     src: "/videos/BackdropVideo.mov",
     alt: "Balloon backdrop installation",
     title: "Backdrop Installation",
