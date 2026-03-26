@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "lmballoons.com" }],
+        destination: "https://www.lmballoons.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
