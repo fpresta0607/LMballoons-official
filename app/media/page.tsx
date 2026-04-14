@@ -16,6 +16,11 @@ type MediaItem = {
 
 const mediaItems: MediaItem[] = [
   {
+    src: "/images/generated/HappilyEverAfterArch.jpg",
+    alt: "White and gold 'Happily Ever After' balloon arch with neon sign",
+    title: "Happily Ever After",
+  },
+  {
     src: "/images/generated/BalloonGarlandBackdrop.png",
     alt: "Balloon garland backdrop",
     title: "Garland Backdrop",
@@ -89,11 +94,6 @@ const mediaItems: MediaItem[] = [
     src: "/images/generated/BasketballDisplay3.jpg",
     alt: "Basketball themed balloon columns",
     title: "Basketball Columns",
-  },
-  {
-    src: "/images/generated/HappilyEverAfterArch.jpg",
-    alt: "White and gold 'Happily Ever After' balloon arch with neon sign",
-    title: "Happily Ever After",
   },
   {
     src: "/images/generated/BalletBirthdayTower.jpg",
