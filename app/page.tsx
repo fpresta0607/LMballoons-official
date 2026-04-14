@@ -26,7 +26,7 @@ const featuredImages = [
   { src: "/images/generated/LEDcenterpiece3.png", alt: "LED balloon centerpiece display" },
   { src: "/images/generated/LedCenterpiece2.png", alt: "Glowing LED balloon centerpiece design" },
   { src: "/images/generated/StPatricksGarland.png", alt: "St. Patrick's Day balloon garland display" },
-  { src: "/images/generated/ValentinesPillar.png", alt: "Valentine's balloon pillar display" },
+  { src: "/images/generated/HappilyEverAfterArch.jpg", alt: "White and gold 'Happily Ever After' balloon arch with neon sign for weddings" },
 ];
 
 const faqs = [
