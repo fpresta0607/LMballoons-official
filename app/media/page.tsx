@@ -76,6 +76,21 @@ const mediaItems: MediaItem[] = [
     title: "Cheetah Arrangement",
   },
   {
+    src: "/images/generated/HappilyEverAfterArch.jpg",
+    alt: "White and gold 'Happily Ever After' balloon arch with neon sign",
+    title: "Happily Ever After",
+  },
+  {
+    src: "/images/generated/BalletBirthdayTower.jpg",
+    alt: "Pink ballerina themed 2nd birthday balloon tower",
+    title: "Ballerina Birthday",
+  },
+  {
+    src: "/images/generated/IlliniWindowColumn.jpg",
+    alt: "Orange and navy Illini balloon column by a Chicago skyline window",
+    title: "Illini Skyline Column",
+  },
+  {
     src: "/videos/BackdropVideo.mov",
     alt: "Balloon backdrop installation",
     title: "Backdrop Installation",
@@ -112,6 +127,9 @@ const desktopBento = [
   "md:col-span-1 md:row-span-1",
   "md:col-span-1 md:row-span-2",
   "md:col-span-1 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
+  "md:col-span-1 md:row-span-1",
+  "md:col-span-2 md:row-span-1",
 ];
 
 // Mobile (2-col): uniform 1x1 grid — no gaps, perfect rectangle
