@@ -19,29 +19,29 @@ if (!apiKey) {
 
 const ai = new GoogleGenAI({ apiKey });
 
-const CINEMATIC_OUTPAINT_PROMPT = `Extend this photograph into a cinematic 16:9 widescreen composition by outpainting the scene outward on the sides (and top/bottom if needed) to fit a widescreen frame. Preserve every balloon, prop, sign, backdrop, and subject exactly as-is — do not alter, add, remove, recolor, or restyle any balloon or decorative object. Keep the existing subject framing and scale; only reveal more of the surrounding room. Seamlessly continue the existing wall textures, flooring, window view, curtains, and ambient lighting into the newly revealed areas with believable perspective. Match the original color grading, depth of field, and light direction. Editorial photography finish, natural warm lighting, high dynamic range, subtle film grain. No text, logos, watermarks, or extra people.`;
+const CINEMATIC_OUTPAINT_PROMPT = `OUTPAINT this photo to a cinematic widescreen frame. The ORIGINAL photograph must appear INSIDE the result at 100% of its pixels, uncropped and unscaled in the middle of the canvas. Do NOT crop, zoom, re-center, re-frame, recolor, relight, or modify ANY part of the original image. Every balloon, prop, neon sign, backdrop panel, curtain, window, floor, and subject stays pixel-perfect identical. ONLY generate NEW content in the blank canvas area to the LEFT and RIGHT (and if needed, above and below) of the original photo, by seamlessly continuing the existing room: same wall color and texture, same flooring, same window view, same drapery, same ambient lighting and color temperature, correct vanishing-point perspective. The newly painted side panels should contain NO new balloons, NO new people, NO text, NO signage, NO logos — only plausible empty room continuation (more wall, more floor, more window, more ceiling). Editorial photography finish, natural warm lighting, matching color grade.`;
 
 type Job = {
   input: string;
   output: string;
-  format: "jpeg" | "png";
+  aspectRatio: "16:9" | "4:3" | "3:2";
 };
 
 const JOBS: Job[] = [
   {
     input: "public/images/unused/IMG_0176.jpeg",
     output: "public/images/generated/HappilyEverAfterArch.jpg",
-    format: "jpeg",
+    aspectRatio: "16:9",
   },
   {
     input: "public/images/unused/IMG_0623.jpeg",
     output: "public/images/generated/BalletBirthdayTower.jpg",
-    format: "jpeg",
+    aspectRatio: "16:9",
   },
   {
     input: "public/images/unused/1C61CD87-4ED7-4BAE-9A4C-85E567FA3B74.jpeg",
     output: "public/images/generated/IlliniWindowColumn.jpg",
-    format: "jpeg",
+    aspectRatio: "16:9",
   },
 ];
 
@@ -67,10 +67,14 @@ async function runJob(job: Job) {
         role: "user",
         parts: [
           { inlineData: { data: sourceBase64, mimeType: "image/jpeg" } },
-          { text: CINEMATIC_OUTPAINT_PROMPT },
+          { text: `${CINEMATIC_OUTPAINT_PROMPT}\n\nTarget output aspect ratio: ${job.aspectRatio}.` },
         ],
       },
     ],
+    config: {
+      responseModalities: ["IMAGE"],
+      imageConfig: { aspectRatio: job.aspectRatio },
+    },
   });
 
   const parts = res.candidates?.[0]?.content?.parts ?? [];
@@ -81,17 +85,12 @@ async function runJob(job: Job) {
   }
 
   const raw = Buffer.from(part.inlineData.data, "base64");
-
-  // Preserve Gemini's full outpainted frame; only downscale if it exceeds 1920 wide.
-  // No cover-crop — that would re-crop the very content we just paid to outpaint.
-  let pipeline = sharp(raw).resize({ width: 1920, withoutEnlargement: true });
-  const buf =
-    job.format === "png"
-      ? await pipeline.png({ compressionLevel: 9 }).toBuffer()
-      : await pipeline.jpeg({ quality: 85, mozjpeg: true }).toBuffer();
+  const meta = await sharp(raw).metadata();
+  // Save Gemini's output as-is — NO resize, NO crop. Only re-encode to JPEG for file-size.
+  const buf = await sharp(raw).jpeg({ quality: 90, mozjpeg: true }).toBuffer();
 
   await writeFile(outPath, buf);
-  console.log(`  ✓ ${job.output} (${(buf.byteLength / 1024).toFixed(0)} KB)`);
+  console.log(`  ✓ ${job.output} ${meta.width}x${meta.height} (${(buf.byteLength / 1024).toFixed(0)} KB)`);
 }
 
 async function main() {
