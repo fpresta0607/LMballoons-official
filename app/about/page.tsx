@@ -3,6 +3,9 @@ import Link from "next/link";
 import { ArrowRight, Instagram, Facebook } from "lucide-react";
 import type { Metadata } from "next";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { getSlot } from "@/lib/media";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "About Lindsey & Marina",
@@ -39,7 +42,12 @@ const pillars = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [founders, process] = await Promise.all([
+    getSlot("about-founders"),
+    getSlot("about-process"),
+  ]);
+
   return (
     <>
       {/* Hero Header */}
@@ -104,8 +112,8 @@ export default function AboutPage() {
           <div className="relative order-1 md:order-2 scroll-fade stagger-2">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
               <Image
-                src="/images/generated/duo.jpeg"
-                alt="Lindsey and Marina, founders of LM Designs & Balloons Co."
+                src={founders?.src ?? "/images/generated/duo.jpeg"}
+                alt={founders?.alt ?? "Lindsey and Marina, founders of LM Designs & Balloons Co."}
                 fill
                 className="object-cover"
               />
@@ -122,8 +130,8 @@ export default function AboutPage() {
           <div className="relative scroll-fade">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-lg">
               <Image
-                src="/images/generated/BalloonGarlandBackdrop.png"
-                alt="Balloon garland backdrop at an event"
+                src={process?.src ?? "/images/generated/BalloonGarlandBackdrop.png"}
+                alt={process?.alt ?? "Balloon garland backdrop at an event"}
                 fill
                 className="object-cover"
               />

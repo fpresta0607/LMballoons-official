@@ -3,10 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { getSlot } from "@/lib/media";
 import { notFound } from "next/navigation";
+
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+function toAbsolute(src: string): string {
+  return src.startsWith("http") ? src : `https://www.lmballoons.com${src}`;
 }
 
 export async function generateStaticParams() {
@@ -18,6 +25,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPostBySlug(slug);
   if (!post) return {};
 
+  const hero = await getSlot(`blog:${slug}`);
+  const heroAlt = hero?.alt ?? post.imageAlt;
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -26,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
-      images: [{ url: `https://www.lmballoons.com${post.image}`, alt: post.imageAlt }],
+      images: [{ url: toAbsolute(hero?.src ?? post.image), alt: heroAlt }],
     },
     twitter: {
       card: "summary_large_image",
@@ -41,13 +51,17 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const hero = await getSlot(`blog:${slug}`);
+  const heroSrc = hero?.src ?? post.image;
+  const heroAlt = hero?.alt ?? post.imageAlt;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     datePublished: post.date,
     description: post.excerpt,
-    image: `https://www.lmballoons.com${post.image}`,
+    image: toAbsolute(heroSrc),
     author: {
       "@type": "Organization",
       name: "LM Designs & Balloons Co.",
@@ -70,8 +84,8 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* Hero Image */}
       <section className="relative h-[40vh] md:h-[50vh]">
         <Image
-          src={post.image}
-          alt={post.imageAlt}
+          src={heroSrc}
+          alt={heroAlt}
           fill
           className="object-cover"
           sizes="100vw"
