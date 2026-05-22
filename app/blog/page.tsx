@@ -2,9 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
+import { getSlots } from "@/lib/media";
 
-export default function BlogPage() {
+export const revalidate = 3600;
+
+export default async function BlogPage() {
   const posts = getAllPosts();
+  const heroes = await getSlots(posts.map((post) => `blog:${post.slug}`));
 
   return (
     <>
@@ -29,7 +33,9 @@ export default function BlogPage() {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post) => {
+              const hero = heroes[`blog:${post.slug}`];
+              return (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -37,8 +43,8 @@ export default function BlogPage() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden rounded-xl mb-4">
                   <Image
-                    src={post.image}
-                    alt={post.imageAlt}
+                    src={hero?.src ?? post.image}
+                    alt={hero?.alt ?? post.imageAlt}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -63,7 +69,8 @@ export default function BlogPage() {
                   <ArrowRight size={12} />
                 </span>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

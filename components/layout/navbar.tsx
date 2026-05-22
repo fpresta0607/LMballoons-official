@@ -13,7 +13,7 @@ const links = [
   { href: "/about", label: "About" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ logoSrc = "/images/logo.png" }: { logoSrc?: string }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -28,6 +28,9 @@ export default function Navbar() {
 
   const isTransparent = isHome && !scrolled && !open;
 
+  // The admin panel uses its own chrome.
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -40,7 +43,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="relative h-10 w-10 shrink-0">
           <Image
-            src="/images/logo.png"
+            src={logoSrc}
             alt="LM Designs & Balloons Co."
             fill
             className={`object-contain transition-all duration-500 ${

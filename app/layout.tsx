@@ -3,6 +3,9 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import { getSlot } from "@/lib/media";
+
+export const revalidate = 3600;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -109,11 +112,13 @@ const jsonLd = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const logo = await getSlot("brand-logo");
+
   return (
     <html lang="en">
       <head>
@@ -131,7 +136,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Navbar />
+        <Navbar logoSrc={logo?.src ?? "/images/logo.png"} />
         <main id="main-content" className="pt-16">{children}</main>
         <Footer />
       </body>
